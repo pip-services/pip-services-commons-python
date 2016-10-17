@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-    pip_services_runtime.refer.__init__
+    pip_services_commons.refer.__init__
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     
     References module initialization
@@ -9,6 +9,7 @@
     :license: MIT, see LICENSE for more details.
 """
 
-__all__ = ['Descriptor']
+__all__ = ['Descriptor', 'IDescriptable']
 
 from .Descriptor import Descriptor
+from .IDescriptable import IDescriptable
