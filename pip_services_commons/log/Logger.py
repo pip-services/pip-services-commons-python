@@ -11,8 +11,9 @@
 
 from .LogLevel import LogLevel
 from .ILogger import ILogger
+from ..config.IReconfigurable import IReconfigurable
 
-class Logger(ILogger):
+class Logger(ILogger, IReconfigurable):
 
     _level = LogLevel.Info
 

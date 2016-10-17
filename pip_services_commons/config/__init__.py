@@ -9,6 +9,7 @@
     :license: MIT, see LICENSE for more details.
 """
 
-#__all__ = ['LogLevel', 'ILogger', 'Logger', 'NullLogger', 'ConsoleLogger']
+__all__ = ['IConfigurable', 'IReconfigurable']
 
-#from .LogLevel import LogLevel
+from .IConfigurable import IConfigurable
+from .IReconfigurable import IReconfigurable

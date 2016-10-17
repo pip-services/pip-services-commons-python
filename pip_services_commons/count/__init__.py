@@ -9,6 +9,8 @@
     :license: MIT, see LICENSE for more details.
 """
 
-#__all__ = ['LogLevel', 'ILogger', 'Logger', 'NullLogger', 'ConsoleLogger']
+__all__ = ['CounterType', 'ITimingCallback', 'ICounters']
 
-#from .LogLevel import LogLevel
+from .CounterType import CounterType
+from .ITimingCallback import ITimingCallback
+from .ICounters import ICounters
