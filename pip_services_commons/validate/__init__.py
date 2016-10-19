@@ -9,10 +9,14 @@
     :license: MIT, see LICENSE for more details.
 """
 
-__all__ = ['IPropertyValidationRule', 'PropertySchema', 'IValidationRule', 'Schema']
+__all__ = [
+    'ValidationResultType', 'ValidationResult', 'ValidationException',
+    'IValidationRule'
+]
 
-from .IPropertyValidationRule import IPropertyValidationRule
+from .ValidationResultType import ValidationResultType
+from .ValidationResult import ValidationResult
+from .ValidationException import ValidationException
 from .IValidationRule import IValidationRule
-from .Schema import Schema
 
 

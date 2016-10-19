@@ -9,6 +9,6 @@
     :license: MIT, see LICENSE for more details.
 """
 
-#__all__ = ['LogLevel', 'ILogger', 'Logger', 'NullLogger', 'ConsoleLogger']
+__all__ = ['TypeCode']
 
-#from .LogLevel import LogLevel
+from .TypeCode import TypeCode
