@@ -10,20 +10,6 @@
 """
 
 class IValidationRule(object):
-    """
-    Interface for object schema validation rule.
-    If can performs overall validation across the entire object.
-    For instance, it can check presence of one of several required properties.
-    """
 
-    def validate(self, schema, value):
-        """
-        Validates object according to the schema and the rule.
-        
-        Args:
-            schema: an object schema this rule belongs to
-            value: the object value to be validated.
-        
-        Returns: MicroserviceError list with validation errors or empty list if validation passed.
-        """
+    def validate(self, path, schema, value, results):
         raise NotImplementedError('Method from interface definition')
