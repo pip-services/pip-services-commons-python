@@ -1,26 +1,26 @@
 # -*- coding: utf-8 -*-
 """
-    pip_services_commons.refer.IOpenable
+    pip_services_commons.refer.IClosable
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     
-    Interface for openable components
+    Interface for closable components
     
     :copyright: Digital Living Software Corp. 2015-2016, see AUTHORS for more details.
     :license: MIT, see LICENSE for more details.
 """
 
-class IOpenable:
+class IClosable:
     """
-    Interface for components that require explicit opening
+    Interface for components that require explicit closure 
     """
 
-    def open(self, correlation_id):
+    def close(self, correlation_id):
         """
-        Opens component, establishes connections to services
+        Closes component, disconnects it from services, disposes resources
 
         Args:
             correlation_id: a unique transaction id to trace calls across components
-        
+
         Raises: ApplicationException on any error
         """
         raise NotImplementedError('Method from interface definition')

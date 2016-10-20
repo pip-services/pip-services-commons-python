@@ -1,22 +1,23 @@
 # -*- coding: utf-8 -*-
 """
-    pip_services_commons.refer.IOpenable
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    pip_services_commons.refer.INotifiable
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     
-    Interface for openable components
+    Interface for notifiable components
     
     :copyright: Digital Living Software Corp. 2015-2016, see AUTHORS for more details.
     :license: MIT, see LICENSE for more details.
 """
 
-class IOpenable:
+class INotifiable:
     """
-    Interface for components that require explicit opening
+    Interface for active components that can be notified (called without expecting a result).
+    In contrast to IParamNotifiable this interface does not require parameters
     """
 
-    def open(self, correlation_id):
+    def notify(self, correlation_id):
         """
-        Opens component, establishes connections to services
+        Executes a unit of work
 
         Args:
             correlation_id: a unique transaction id to trace calls across components

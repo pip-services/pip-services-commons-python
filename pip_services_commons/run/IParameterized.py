@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 """
-    pip_services_commons.run.IParameterized
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    pip_services_commons.refer.IParameterized
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     
-    Interface for components that require parameters
+    Interface for parameterized components
     
     :copyright: Digital Living Software Corp. 2015-2016, see AUTHORS for more details.
     :license: MIT, see LICENSE for more details.
@@ -11,10 +11,10 @@
 
 class IParameterized:
     """
-     Interface for components that require parameters
+    Interface for components that require parameters 
     """
 
-    def set_parameters(self, parameters):
+    def close(self, correlation_id):
         """
         Sets component configuration parameters
 

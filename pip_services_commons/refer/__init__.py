@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
     pip_services_commons.refer.__init__
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     
     References module initialization
     
@@ -10,8 +10,8 @@
 """
 
 __all__ = [
-    'Descriptor', 'IDescriptable', 'ILocateable', 'IReferenceable', 'IUnreferenceable',
-    'IReferences'
+    'Descriptor', 'IDescriptable', 'ILocateable', 
+    'IReferenceable', 'IUnreferenceable', 'IReferences'
 ]
 
 from .Descriptor import Descriptor
