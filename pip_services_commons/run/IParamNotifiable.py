@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-    pip_services_commons.refer.IParamNotifiable
+    pip_services_commons.run.IParamNotifiable
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     
     Interface for notifiable components with parameters

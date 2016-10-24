@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-    pip_services_commons.refer.IClosable
+    pip_services_commons.run.IClosable
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     
     Interface for closable components

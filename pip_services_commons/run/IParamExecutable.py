@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-    pip_services_commons.refer.IParamExecutable
+    pip_services_commons.run.IParamExecutable
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     
     Interface for executable components with parameters

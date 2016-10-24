@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-    pip_services_commons.refer.IParameterized
+    pip_services_commons.run.IParameterized
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     
     Interface for parameterized components

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-    pip_services_commons.refer.INotifiable
+    pip_services_commons.run.INotifiable
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     
     Interface for notifiable components

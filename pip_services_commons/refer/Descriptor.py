@@ -105,6 +105,14 @@ class Descriptor(object):
         # All checks are passed...
         return True
 
+    def __eq__(self, other):
+        if isinstance(other, Descriptor):
+            return self.match(other)
+        return False
+
+    def __ne__(self, other):
+        return not self.__eq__(other)
+
     def __str__(self):
         return (self._group or "*") \
         + ":" + (self._type or "*") \

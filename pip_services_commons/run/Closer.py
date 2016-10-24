@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-    pip_services_commons.refer.Closer
+    pip_services_commons.run.Closer
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     
     Closer component implementation

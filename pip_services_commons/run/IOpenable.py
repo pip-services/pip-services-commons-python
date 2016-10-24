@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-    pip_services_commons.refer.IOpenable
+    pip_services_commons.run.IOpenable
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     
     Interface for openable components

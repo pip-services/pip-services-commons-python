@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-    pip_services_commons.refer.Opener
+    pip_services_commons.run.Opener
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     
     Opener component implementation

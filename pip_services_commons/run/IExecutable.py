@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-    pip_services_commons.refer.IExecutable
+    pip_services_commons.run.IExecutable
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     
     Interface for executable components

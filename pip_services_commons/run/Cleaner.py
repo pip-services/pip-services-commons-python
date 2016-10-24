@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-    pip_services_commons.refer.Cleaner
+    pip_services_commons.run.Cleaner
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     
     Cleaner component implementation
