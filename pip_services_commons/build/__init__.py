@@ -9,6 +9,8 @@
     :license: MIT, see LICENSE for more details.
 """
 
-__all__ = ['IFactory']
+__all__ = ['IFactory', 'CreateException', 'CompositeFactory']
 
-from .IFactory import Factory
+from .IFactory import IFactory
+from .CreateException import CreateException
+from .CompositeFactory import CompositeFactory
