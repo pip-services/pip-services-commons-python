@@ -5,25 +5,25 @@ class TestClass:
     public_field = "ABC"
     _public_prop = datetime.datetime.now()
 
-    def __init__(arg1):
+    def __init__(self):
         pass
 
-    def _get_private_prop():
+    def _get_private_prop(self):
         return 543
 
-    def _set_private_prop(value):
+    def _set_private_prop(self, value):
         pass
 
-    def get_public_prop():
+    def get_public_prop(self):
         return self._public_prop
 
-    def set_public_prop(value):
+    def set_public_prop(self, value):
         self._public_prop = value
 
     public_prop = property(get_public_prop, set_public_prop)
 
-    def _private_method():
+    def _private_method(self):
         pass
 
-    def public_method(arg1, arg2):
+    def public_method(self, arg1, arg2):
         return arg1 + arg2
