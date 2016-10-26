@@ -40,13 +40,13 @@ class AnyValueMap(dict):
     def get_as_object(self, key = None):
         if key == None:
             return self.get_as_map()
-        else
+        else:
             return self.get(key)
 
     def set_as_object(self, key = None, value = None):
         if key == None and value != None:
             self.set_as_map(value)
-        else
+        else:
             self.put(key, value)
 
     def get_as_map(self, key):
@@ -55,7 +55,7 @@ class AnyValueMap(dict):
             for (k, v) in self:
                 map[k] = v
             return map
-        else
+        else:
             value = self.get(key)
             return MapConverter.to_map(value)
 
@@ -196,7 +196,7 @@ class AnyValueMap(dict):
 
         index = 0
         while index < len(tuples):
-            if (index + 1 >= len(tuples))
+            if index + 1 >= len(tuples):
                 break
 
             key = StringConverter.to_string(tuples[index])

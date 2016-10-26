@@ -26,7 +26,7 @@ class AnyValue(object):
     def __init__(self, value = None):
         if isinstance(value, AnyValue):
             self.value = value._value
-        else
+        else:
             self.value = value
 
     def get_type_code(self):

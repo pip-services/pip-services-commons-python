@@ -29,13 +29,13 @@ class AnyValueArray(list):
     def get_as_object(self, index = None):
         if index == None:
             return self.get_as_array()
-        else
+        else:
             return self[index]
 
     def set_as_object(self, index = None, value= None):
         if index == None and value != None:
             self.set_as_array(value)
-        else
+        else:
             self[index] = value
 
     def get_as_array(self, index):
@@ -44,7 +44,7 @@ class AnyValueArray(list):
             for value in self:
                 array.append(value)
             return array
-        else
+        else:
             value = self[index]
             return ArrayConverter.to_array(value)
 
@@ -209,7 +209,7 @@ class AnyValueArray(list):
     def from_string(values, separator, remove_duplicates = False):
         result = AnyValueArray()
 
-        if values == None || len(values) == 0:
+        if values == None or len(values) == 0:
             return result
 
         items = str(values).split(separator)
