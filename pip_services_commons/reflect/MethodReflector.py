@@ -12,15 +12,16 @@
 class MethodReflector:
 
     @staticmethod
-    def _match_method(method, name):
+    def _is_method(method, name):
         if method == None:
             return False
         if not callable(method):
             return False
-        method_name = method.__name__
-        if method_name.startswith("_"):
+
+        if name.startswith("_"):
             return False
-        return method_name.lower() == name.lower() 
+
+        return True 
 
 
     @staticmethod
@@ -30,11 +31,18 @@ class MethodReflector:
         if name == None:
             raise Exception("Method name cannot be null")
 
-        if not hasattr(obj, name):
-            return False
+        name = name.lower();
 
-        method = getattr(obj, name)
-        return MethodReflector._match_method(method, name)
+        for method_name in dir(obj): 
+            if method_name.lower() != name:
+                continue
+
+            method = getattr(obj, method_name)
+
+            if MethodReflector._is_method(method, method_name):
+                return True
+        
+        return False
 
 
     @staticmethod
@@ -44,13 +52,17 @@ class MethodReflector:
         if name == None:
             raise Exception("Method name cannot be null")
         
-        if not hasattr(obj, name):
-            return None
-
+        name = name.lower()
+        
         try:
-            method = getattr(obj, name)
-            if MethodReflector._match_method(method, name):
-                return method(*args)
+            for method_name in dir(obj): 
+                if method_name.lower() != name:
+                    continue
+
+                method = getattr(obj, method_name)
+
+                if MethodReflector._is_method(method, method_name):
+                    return method(*args)
         except:
             pass
         
@@ -59,11 +71,13 @@ class MethodReflector:
 
     @staticmethod
     def get_method_names(obj):
-        methods = []
+        method_names = []
         
-        for name in dir(obj):
-            method = getattr(obj, name)
-            if MethodReflector._match_method(method, name):
-                methods.append(name)
+        for method_name in dir(obj):
 
-        return methods
+            method = getattr(obj, method_name)
+
+            if MethodReflector._is_method(method, method_name):
+                method_names.append(method_name)
+
+        return method_names
