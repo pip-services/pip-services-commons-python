@@ -165,14 +165,14 @@ class AnyValueMap(dict):
     def __str__(self):
         result = ''
 
-        for (k, v) in self:
+        for (key, value) in self.items():
             if len(result) > 0:
                 result += ';'
 
-            if v != None:
-                result += k + '=' + StringConverter.get_as_string_with_default(v, '')
+            if value != None:
+                result += key + '=' + StringConverter.to_string_with_default(value, '')
             else:
-                retsult += k
+                result += key
 
         return result
 
@@ -185,7 +185,7 @@ class AnyValueMap(dict):
 
     @staticmethod
     def from_tuples(*tuples):
-        return AnyValueMap.from_tuples_array(*tuples)
+        return AnyValueMap.from_tuples_array(tuples)
 
     @staticmethod
     def from_tuples_array(tuples):
@@ -215,8 +215,8 @@ class AnyValueMap(dict):
             return result
 
         for map in maps:
-            for (k, v) in map:
-                key = StringConverter.to_string(k)
-                result.put(key, v)
+            for (key, value) in map:
+                key = StringConverter.to_string(key)
+                result.put(key, value)
 
         return result

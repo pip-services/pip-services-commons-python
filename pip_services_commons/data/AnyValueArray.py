@@ -190,7 +190,7 @@ class AnyValueArray(list):
         for element in self:
             if len(result) > 0:
                 result += ','
-            result += StringConverter.get_as_string_with_default(element, '')
+            result += StringConverter.to_string_with_default(element, '')
 
         return result
 
