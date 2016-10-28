@@ -22,9 +22,10 @@ from ..convert.MapConverter import MapConverter
 
 class AnyValueArray(list):
 
-    def __init__(self, *values):
-        for value in values:
-            self.append(value)
+    def __init__(self, values = None):
+        if values != None and len(values) > 0:
+            for value in values:
+                self.append(value)
 
     def get_as_object(self, index = None):
         if index == None:
@@ -196,13 +197,13 @@ class AnyValueArray(list):
 
     @staticmethod
     def from_values(*values):
-        return AnyValueArray(*values)
+        return AnyValueArray(values)
 
     @staticmethod
     def from_value(value):
         value = ArrayConverter.to_nullable_array(value)
         if value != None:
-            return AnyValueArray(*value)
+            return AnyValueArray(value)
         return AnyValueArray()
 
     @staticmethod
