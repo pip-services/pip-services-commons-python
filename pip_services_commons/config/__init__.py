@@ -9,7 +9,13 @@
     :license: MIT, see LICENSE for more details.
 """
 
-__all__ = ['IConfigurable', 'IReconfigurable']
+__all__ = [
+    'IConfigurable', 'IReconfigurable', 'ConfigParams',
+    'JsonConfigReader', 'YamlConfigReader'
+]
 
 from .IConfigurable import IConfigurable
 from .IReconfigurable import IReconfigurable
+from .ConfigParams import ConfigParams
+from .JsonConfigReader import JsonConfigReader
+from .YamlConfigReader import YamlConfigReader
