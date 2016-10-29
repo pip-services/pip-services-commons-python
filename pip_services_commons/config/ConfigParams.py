@@ -36,7 +36,7 @@ class ConfigParams(StringValueMap):
         sections = []
         
         for (key, value) in self.items():
-            pos = key.index('.')
+            pos = key.find('.')
             if pos > 0:
                 key = key[0 : pos]
 

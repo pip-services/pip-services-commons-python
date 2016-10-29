@@ -212,7 +212,7 @@ class StringValueMap(dict):
         for token in tokens:
             if len(token) == 0:
                 continue
-            index = token.index('=')
+            index = token.find('=')
             key = token[0:index] if index >= 0 else token
             value = token[index + 1:] if index >= 0 else None
             result.put(key, value)

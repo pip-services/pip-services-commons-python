@@ -11,6 +11,7 @@
 
 from .ObjectReader import ObjectReader
 from .ObjectWriter import ObjectWriter
+from .RecursiveObjectReader import RecursiveObjectReader
 
 class RecursiveObjectWriter:
 
@@ -60,5 +61,5 @@ class RecursiveObjectWriter:
         if dest == None or src == None:
             return
         
-        values = ObjectReader.get_properties(src)
+        values = RecursiveObjectReader.get_properties(src)
         RecursiveObjectWriter.set_properties(dest, values)

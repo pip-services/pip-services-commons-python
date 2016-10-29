@@ -43,11 +43,12 @@ class AnyValueMap(dict):
         else:
             return self.get(key)
 
-    def set_as_object(self, key = None, value = None):
-        if key == None and value != None:
-            self.set_as_map(value)
-        else:
-            self.put(key, value)
+    def set_as_object(self, *args):
+        if len(args) == 1:
+            map = MapConverter.to_map(args[0])
+            self.set_as_map(map)
+        elif len(args) == 2:
+            self.put(args[0], args[1])
 
     def get_as_map(self, key):
         if key == None:
@@ -61,7 +62,7 @@ class AnyValueMap(dict):
 
     def set_as_map(self, values):
         self.clear()
-        for (k, v) in map.items():
+        for (k, v) in values.items():
             self.put(k, v)
 
     def get_as_nullable_string(self, key):
@@ -154,8 +155,13 @@ class AnyValueMap(dict):
 
     def get_as_map(self, key):
         value = self.get(key)
-        return MapConverter.from_value(value)
+        return AnyValueMap.from_value(value)
 
+    def contains_key(self, key):
+        for (k, v) in self.items():
+            if key == k.lower():
+                return True
+        return False
 
     def clone(self):
         map = AnyValueMap()
@@ -178,10 +184,9 @@ class AnyValueMap(dict):
 
     @staticmethod
     def from_value(value):
-        value = ArrayConverter.to_nullable_array(value)
-        if value != None:
-            return AnyValueArray(*value)
-        return AnyValueArray()
+        result = AnyValueMap()
+        result.set_as_object(value)
+        return result
 
     @staticmethod
     def from_tuples(*tuples):

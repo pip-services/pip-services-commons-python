@@ -53,7 +53,7 @@ class FixedRateTimer(IClosable):
     def _timer_callback(self):
         try:
             self._task.notify("pip-commons-timer")
-        except
+        except:
             # Ignore or better log
             pass
 
