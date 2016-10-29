@@ -16,7 +16,8 @@ class Cleaner:
     Helper class that cleans components
     """
 
-    def clear(self, correlation_id, components):
+    @staticmethod
+    def clear(correlation_id, components):
         """
         Cleans components that implement ICleanable interface
 

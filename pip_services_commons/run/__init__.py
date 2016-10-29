@@ -10,20 +10,25 @@
 """
 
 __all__ = [
-    'ICleanable', 'Cleaner', 'IParameterized',
+    'Parameters', 'IParameterized', 'FixedRateTimer',
+    'ICleanable', 'Cleaner', 
     'IOpenable', 'Opener', 'IClosable', 'Closer', 
-    'IExecutable', 'IParamExecutable',
-    'INotifiable', 'IParamNotifiable'
+    'IExecutable', 'IParamExecutable', 'Executor',
+    'INotifiable', 'IParamNotifiable', 'Notifier'
 ]
 
+from .Parameters import Parameters
 from .IParameterized import IParameterized
+from .FixedRateTimer import FixedRateTimer
 from .ICleanable import ICleanable
+from .Cleaner import Cleaner
 from .IOpenable import IOpenable
+from .Opener import Opener
 from .IClosable import IClosable
+from .Closer import Closer
 from .IExecutable import IExecutable
 from .IParamExecutable import IParamExecutable
+from .Executor import Executor
 from .INotifiable import INotifiable
 from .IParamNotifiable import IParamNotifiable
-from .Cleaner import Cleaner
-from .Opener import Opener
-from .Closer import Closer
+from .Notifier import Notifier

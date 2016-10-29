@@ -14,7 +14,7 @@ class IParameterized:
     Interface for components that require parameters 
     """
 
-    def close(self, correlation_id):
+    def set_parameters(self, parameters):
         """
         Sets component configuration parameters
 

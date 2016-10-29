@@ -16,7 +16,8 @@ class Closer:
     Helper class that closes components
     """
 
-    def close(self, correlation_id, components):
+    @staticmethod
+    def close(correlation_id, components):
         """
         Closes components that implement ICloseable interface
 

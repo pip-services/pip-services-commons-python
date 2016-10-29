@@ -16,7 +16,8 @@ class Opener:
     Helper class that opens a collection of components 
     """
 
-    def open(self, correlation_id, components):
+    @staticmethod
+    def open(correlation_id, components):
         """
         Opens component that implement IOpenable interface
 
