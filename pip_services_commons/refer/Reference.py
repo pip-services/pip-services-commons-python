@@ -32,7 +32,7 @@ class Reference(ILocateable):
         elif isinstance(reference, ILocateable):
             self._locateableReference = reference
         elif isinstance(reference, IDescriptable):
-            self._locator = descriptable.get_descriptor()
+            self._locator = reference.get_descriptor()
         else:
             raise Exception("Reference must implement ILocateable or IDescriptable interface")
 

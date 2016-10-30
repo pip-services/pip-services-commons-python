@@ -9,11 +9,17 @@
     :license: MIT, see LICENSE for more details.
 """
 
-__all__ = ['LogLevel', 'ILogger', 'Logger', 'NullLogger', 'ConsoleLogger', 'LogMessage']
+__all__ = [
+    'LogLevel', 'ILogger', 'Logger', 
+    'NullLogger', 'ConsoleLogger', 'CompositeLogger', 
+    'LogMessage', 'CachedLogger'
+]
 
 from .LogLevel import LogLevel
 from .ILogger import ILogger
 from .Logger import Logger
 from .NullLogger import NullLogger
 from .ConsoleLogger import ConsoleLogger
+from .CompositeLogger import CompositeLogger
 from .LogMessage import LogMessage
+from .CachedLogger import CachedLogger

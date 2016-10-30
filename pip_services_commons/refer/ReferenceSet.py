@@ -181,4 +181,4 @@ class ReferenceSet(IReferences):
 
     @staticmethod
     def from_list(*references):
-        return ReferenceSet(references)
+        return ReferenceSet(*references)
