@@ -15,3 +15,17 @@ class CounterType(object):
     Statistics = 2
     Timestamp = 3
     Increment = 4
+
+    @staticmethod
+    def to_string(typ):
+        if typ == CounterType.Interval:
+            return "INTERVAL" 
+        if typ == CounterType.LastValue:
+            return "LAST" 
+        if typ == CounterType.Statistics:
+            return "STATS" 
+        if typ == CounterType.Timestamp:
+            return "TIME"
+        if typ == CounterType.Increment:
+            return "COUNT"
+        return "UNDEF"

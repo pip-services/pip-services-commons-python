@@ -62,7 +62,7 @@ class CachedLogger(Logger, IReconfigurable):
     def clear(self):
         self._lock.acquire()
         try:
-            self._cache.clear()
+            self._cache = []
             self._updated = False
         finally:
             self._lock.release()

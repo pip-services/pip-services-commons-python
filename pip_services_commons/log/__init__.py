@@ -23,3 +23,4 @@ from .ConsoleLogger import ConsoleLogger
 from .CompositeLogger import CompositeLogger
 from .LogMessage import LogMessage
 from .CachedLogger import CachedLogger
+from .DefaultLoggerFactory import DefaultLoggerFactory

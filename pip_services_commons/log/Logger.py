@@ -30,7 +30,7 @@ class Logger(ILogger, IReconfigurable):
         raise NotImplementedError('Method from abstract implementation')
 
     def _format_and_write(self, level, correlation_id, error, message, *args, **kwargs):
-        if message != None and len(message) > 0:
+        if message != None and len(message) > 0 and len(kwargs) > 0:
             message = message.format(*args, **kwargs)
         self._write(level, correlation_id, error, message)
 
