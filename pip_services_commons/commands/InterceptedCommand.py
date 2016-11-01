@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-    pip_services_runtime.commands.InterceptedCommand
+    pip_services_commons.commands.InterceptedCommand
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     
     Intercepted command implementation
@@ -61,7 +61,7 @@ class InterceptedCommand(ICommand):
         Args:
             args: command arguments
         
-        Returns: MicroserviceError list with errors or empty list if validation was successful.
+        Returns: a list of validation results
         """
         return self._intercepter.validate(self._next, args)
     

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-    pip_services_runtime.commands.ICommandIntercepter
+    pip_services_commons.commands.ICommandIntercepter
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     
     Interface for command intercepters.
@@ -25,19 +25,19 @@ class ICommandIntercepter(object):
         """
         raise NotImplementedError('Method from interface definition')
 
-    def execute(self, command, correlation_id, args):
+    def execute(self, correlation_id, command, args):
         """
         Executes the command given specific arguments as an input.
         
         Args:
-            command: intercepted ICommand
             correlation_id: a unique correlation/transaction id
+            command: intercepted ICommand
             args: command arguments
         
         Returns: an execution result.
         
         Raises:
-            MicroserviceError: when execution fails for whatever reason.
+            ApplicationException when execution fails for whatever reason.
         """
         raise NotImplementedError('Method from interface definition')
 
@@ -49,7 +49,7 @@ class ICommandIntercepter(object):
             command: intercepted ICommand
             args: command arguments
         
-        Returns: MicroserviceError list with errors or empty list if validation was successful.
+        Returns: a list of validation results.
         """
         raise NotImplementedError('Method from interface definition')
     

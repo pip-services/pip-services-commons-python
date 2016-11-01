@@ -1,28 +1,27 @@
 # -*- coding: utf-8 -*-
 """
-    pip_services_runtime.commands.Command
+    pip_services_commons.commands.Command
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     
-    Commands implementation
+    Command implementation
     
     :copyright: Digital Living Software Corp. 2015-2016, see AUTHORS for more details.
     :license: MIT, see LICENSE for more details.
 """
 
 from .ICommand import ICommand
-from ..errors.CallError import CallError
+from ..errors.InvocationException import InvocationException
 
 class Command(ICommand):
     """
     Represents a command that implements a command pattern
     """
 
-    _component = None
     _name = None
     _schema = None
     _function = None
 
-    def __init__(self, component, name, schema, function):
+    def __init__(self, name, schema, function):
         """
         Creates a command instance
         
@@ -37,7 +36,6 @@ class Command(ICommand):
         if function == None:
             raise TypeError("Command function is not set")
         
-        self._component = component
         self._name = name
         self._schema = schema
         self._function = function
@@ -60,28 +58,23 @@ class Command(ICommand):
         Returns: an execution result.
         
         Raises:
-            MicroserviceError: when execution fails for whatever reason.
+            ApplicationException: when execution fails for whatever reason.
         """
         # Validate arguments
         if self._schema != None:
-            errors = self.validate(args)
-            # Throw the 1st error
-            if len(errors) > 0:
-                raise errors[0]
+            self.validate_and_throw_exception(correlation_id, args)
         
         # Call the function
         try:
             return self._function(correlation_id, args)
         # Intercept unhandled errors
-        except Exception as e:
-            raise CallError(
-                self._component,
-                "ExecFailed",
-                "Execution " + self._name + " failed: " + str(e)
-            ) \
-            .with_details(self._name) \
-            .with_correlation_id(correlation_id) \
-            .wrap(e)
+        except Exception as ex:
+            raise InvocationException(
+                correlation_id,
+                "EXEC_FAILED",
+                "Execution " + self._name + " failed: " + str(ex)
+            ).with_details("command", self._name).wrap(ex)
+
 
     def validate(self, args):
         """
@@ -90,11 +83,11 @@ class Command(ICommand):
         Args:
             args: command arguments
         
-        Returns: MicroserviceError list with errors or empty list if validation was successful.
+        Returns: list with validation results
         """
         # When schema is not defined, then skip validation
-        if self._schema == None: 
-            return []
+        if self._schema != None: 
+            return self._schema.validate(args)
         
         # ToDo: Complete implementation
         return []

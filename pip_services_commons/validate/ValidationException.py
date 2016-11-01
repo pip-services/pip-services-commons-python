@@ -36,3 +36,15 @@ class ValidationException(BadRequestException):
                     first = False
 
         return message
+
+    @staticmethod
+    def throw_exception_if_needed(correlation_id, results, strict):
+        has_errors = False
+        for result in results:
+            if result.type == ValidationResultType.Error:
+                has_errors = True
+            if strict and result.type == ValidationResultType.Warning:
+                has_errors = True
+
+        if has_errors:
+            raise ValidationException(correlation_id, results)

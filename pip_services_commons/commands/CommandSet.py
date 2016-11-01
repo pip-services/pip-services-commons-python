@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-    pip_services_runtime.commands.CommandSet
+    pip_services_commons.commands.CommandSet
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     
     Command set implementation
@@ -9,7 +9,10 @@
     :license: MIT, see LICENSE for more details.
 """
 
-from ..errors.BadRequestError import BadRequestError
+from ..errors.BadRequestException import BadRequestException
+from ..validate.ValidationException import ValidationException
+from ..validate.ValidationResult import ValidationResult
+from ..validate.ValidationResultType import ValidationResultType
 from ..data.IdGenerator import IdGenerator
 
 class CommandSet(object):
@@ -20,11 +23,15 @@ class CommandSet(object):
 
     _commands = None
     _commands_by_name = None
+    _events = None
+    _events_by_name = None
     _intercepters = None
 
     def __init__(self):
         self._commands = []
         self._commands_by_name = {}
+        self._events = []
+        self._events_by_name = {}
         self._intercepters = []
 
     def get_commands(self):
@@ -33,6 +40,13 @@ class CommandSet(object):
         Returns: ICommand list with all commands supported by component. 
         """
         return self._commands
+
+    def get_events(self):
+        """
+        Get all supported events
+        Returns: ICommand list with all events supported by component. 
+        """
+        return self._events
 
     def find_command(self, command):
         """
@@ -45,6 +59,20 @@ class CommandSet(object):
         """
         if command in self._commands_by_name:
             return self._commands_by_name[command]
+        else:
+            return None
+
+    def find_event(self, event):
+        """
+        Find a specific event by its name.
+        
+        Args:
+            event: the event name.
+
+        Returns: found IEvent or None
+        """
+        if event in self._events_by_name:
+            return self._events_by_name[event]
         else:
             return None
 
@@ -100,17 +128,44 @@ class CommandSet(object):
         for command in commands:
             self.add_command(command)
 
-    def add_command_set(self, commands):
+    def add_event(self, event):
         """
-        Adds commands from another command set to this one
+        Adds an eventr to the command set.
         
         Args:
-            commands: a commands set to add commands from
+            event: an event instance to be added
 
         Returns: None
         """
-        for command in commands.get_commands():
+        self._events.append(event)
+        self._events_by_name[event.get_name] = event
+
+    def add_events(self, events):
+        """
+        Adds a list of eventrs to the command set
+        
+        Args:
+            events: a list of events to be added
+
+        Returns: None
+        """
+        for event in events:
+            self.add_event(event)
+
+    def add_command_set(self, command_set):
+        """
+        Adds commands and events from another command set to this one
+        
+        Args:
+            command_set: a commands set to add commands from
+
+        Returns: None
+        """
+        for command in command_set.get_commands():
             self.add_command(command)
+
+        for event in command_set.get_events():
+            self.add_event(event)
 
     def add_intercepter(self, intercepter):
         """
@@ -124,13 +179,13 @@ class CommandSet(object):
         self._intercepters.append(intercepter)
         self._rebuild_all_command_chains()
 
-    def execute(self, command, correlation_id, args):
+    def execute(self, correlation_id, command, args):
         """
         Execute command by its name with specified arguments.
         
         Args:
-            command: the command name.
             correlation_id: a unique correlation/transaction id
+            command: the command name.
             args: a list of command arguments.
         
         Returns: the execution result.
@@ -141,18 +196,20 @@ class CommandSet(object):
         # Get command and throw error if it doesn't exist
         cref = self.find_command(command)
         if cref == None:
-            raise BadRequestError("NoCommand", "Requested command does not exist") \
-                .with_details(command)
+            raise BadRequestException(
+                correlation_id,
+                "CMD_NOT_FOUND",
+                "Requested command does not exist"
+            ).with_details("command", command)
 
         # Generate correlationId if it doesn't exist
         # Use short ids for now
         if correlation_id == None:
-           correlation_id = IdGenerator.short()
+           correlation_id = IdGenerator.next_short()
         
         # Validate command arguments before execution and throw the 1st found error
-        errors = cref.validate(args)
-        if len(errors) > 0:
-            raise errors[0]
+        results = cref.validate(args)
+        ValidationException.throw_exception_if_needed(correlation_id, results, False)
                 
         # Execute the command.
         return cref.execute(correlation_id, args)
@@ -165,15 +222,51 @@ class CommandSet(object):
             command: the command name.
             args: a list of command arguments.
         
-        Returns: MicroserviceError list of validation errors or empty list when arguments are valid.
+        Returns: list with validation results
         """
         cref = self.find_command(command)
         if cref == None:
-            errors = []
-            errors.append( \
-                BadRequestError("NoCommand", "Requested command does not exist") \
-                .with_details(command) \
+            results = []
+            results.append( \
+                ValidationResult(
+                    None, ValidationResultType.Error,
+                    "CMD_NOT_FOUND", 
+                    "Requested command does not exist"
+                )
             )
-            return errors
+            return results
+
         return cref.validate(args)
     
+    def add_listener(self, listener):
+        """
+        Adds listener to all events.
+
+        Args:
+            listener: a listener to be added
+        """
+        for event in self._events:
+            event.add_listener(listener)
+
+    def remove_listener(self, listener):
+        """
+        Remove listener to all events.
+
+        Args:
+            listener: a listener to be removed
+        """
+        for event in self._events:
+            event.remove_listener(listener)
+
+    def notify(self, correlation_id, event, value):
+        """
+        Notifies all listeners about the event.
+
+        Args:
+            correlation_id: a unique correlation/transaction id
+            event: an event name
+            value: an event value
+        """
+        e = self.find_event(event)
+        if e != None:
+            e.notify(correlation_id, value)

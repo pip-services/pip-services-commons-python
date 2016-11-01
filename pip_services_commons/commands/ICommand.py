@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-    pip_services_runtime.commands.ICommand
+    pip_services_commons.commands.ICommand
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     
     Interface for commands.
@@ -9,7 +9,9 @@
     :license: MIT, see LICENSE for more details.
 """
 
-class ICommand(object):
+from ..run.IParamExecutable import IParamExecutable
+
+class ICommand(object, IParamExecutable):
     """
     Interface for commands that execute functional operations.
     """
@@ -17,22 +19,8 @@ class ICommand(object):
     def get_name(self):
         """
         Gets the command name.
-        Results: the command name
-        """
-        raise NotImplementedError('Method from interface definition')
 
-    def execute(self, correlation_id, args):
-        """
-        Executes the command given specific arguments as an input.
-        
-        Args:
-            correlation_id: a unique correlation/transaction id
-            args: command arguments
-        
-        Returns: an execution result.
-        
-        Raises:
-            MicroserviceError: when execution fails for whatever reason.
+        Results: the command name
         """
         raise NotImplementedError('Method from interface definition')
 
@@ -42,8 +30,8 @@ class ICommand(object):
         
         Args:
             args: command arguments
-        
-        Returns: MicroserviceError list with errors or empty list if validation was successful.
+
+        Returns: a list of validation results
         """
         raise NotImplementedError('Method from interface definition')
     
