@@ -1,0 +1,57 @@
+# -*- coding: utf-8 -*-
+"""
+    pip_services_commons.random.RandomString
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    
+    RandomString implementation
+    
+    :copyright: Digital Living Software Corp. 2015-2016, see AUTHORS for more details.
+    :license: MIT, see LICENSE for more details.
+"""
+
+import random
+
+from .RandomInteger import RandomInteger
+from .RandomBoolean import RandomBoolean 
+
+_digits = "01234956789"
+_symbols = "_,.:-/.[].{},#-!,$=%.+^.&*-() "
+_alpha_lower = "abcdefghijklmnopqrstuvwxyz"
+_alpha_upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+_alpha = _alpha_upper + _alpha_lower
+_chars = _alpha + _digits + _symbols
+
+class RandomString(object):
+
+    @staticmethod
+    def pick(values):
+        if values == None or len(values) == 0:
+            return None
+
+        return random.choice(values)
+
+    @staticmethod
+    def distort(value):
+        value = value.lower()
+
+        if (RandomBoolean.chance(1, 5)):
+            value = value[0:1].upper() + value[1:]
+
+        if (RandomBoolean.chance(1, 3)):
+            value = value + random.choice(_symbols)
+
+        return value
+
+    @staticmethod
+    def next_alpha_char():
+        return random.choice(_alpha)
+
+    @staticmethod
+    def next_string(min_length, max_length):
+        result = ''
+        
+        length = RandomInteger.next_integer(min_length, max_length)
+        for i in range(length):
+            result += random.choice(_chars)
+
+        return result
