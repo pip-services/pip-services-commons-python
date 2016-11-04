@@ -65,7 +65,7 @@ class Schema(object):
 
         # Perform validation against schema
         if isinstance(typ, Schema):
-            schema = type
+            schema = typ
             schema._perform_validation(path, value, results)
             return
 

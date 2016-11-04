@@ -23,9 +23,11 @@ class RecursiveMapConverter(object):
         elif hasattr(value, "__iter__"):
             return [RecursiveMapConverter._value_to_map(v, classkey) for v in value]
         elif hasattr(value, "__dict__"):
-            data = dict([(key, RecursiveMapConverter._value_to_map(value, classkey)) 
-                for key, value in value.__dict__.iteritems() 
-                if not callable(value) and not key.startswith('_')])
+            data = {} 
+            for k in dir(value):
+                v = getattr(value, k)
+                if not callable(v) and not k.startswith('_'):
+                    data[k] = RecursiveMapConverter._value_to_map(v, classkey)
             if classkey is not None and hasattr(value, "__class__"):
                 data[classkey] = value.__class__.__name__
             return data

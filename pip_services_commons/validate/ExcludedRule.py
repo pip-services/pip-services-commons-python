@@ -33,7 +33,7 @@ class ExcludedRule(IValidationRule):
                     path,
                     ValidationResultType.Error,
                     "VALUE_INCLUDED",
-                    "Value shall not be one of " + str(_values),
+                    "Value shall not be one of " + str(self._values),
                     self._values,
                     value
                 )

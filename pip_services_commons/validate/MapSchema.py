@@ -31,7 +31,7 @@ class MapSchema(Schema):
             return
 
         if isinstance(value, dict):
-            for (key, value) in map.items():
+            for (key, value) in value.items():
                 element_path = key if path == None or len(path) else path + "." + key
 
                 self._perform_type_validation(element_path, self.key_type, key, results)

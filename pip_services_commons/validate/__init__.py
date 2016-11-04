@@ -32,6 +32,6 @@ from .ExcludedRule import ExcludedRule
 from .IncludedRule import IncludedRule
 from .Schema import Schema
 from .PropertySchema import PropertySchema
-from .ObjectSchema import ObjecSchema
+from .ObjectSchema import ObjectSchema
 from .ArraySchema import ArraySchema
 from .MapSchema import MapSchema

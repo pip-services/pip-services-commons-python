@@ -10,9 +10,12 @@
 """
 
 from .Schema import Schema
+from .ValidationResultType import ValidationResultType
+from .ValidationResult import ValidationResult
+from .PropertySchema import PropertySchema
 from ..reflect.ObjectReader import ObjectReader
 
-class ObjecSchema(Schema):
+class ObjectSchema(Schema):
     properties = None
     is_allow_undefined = None
 
@@ -33,17 +36,17 @@ class ObjecSchema(Schema):
         schema = PropertySchema(name, typ)
         schema.rules = rules
         schema.make_required()
-        return with_property(schema)
+        return self.with_property(schema)
 
     def with_optional_property(self, name, typ, *rules):
         self.properties = self.properties if self.properties != None else []
         schema = PropertySchema(name, typ)
         schema.rules = rules
         schema.make_optional()
-        return with_property(schema)
+        return self.with_property(schema)
 
     def _perform_validation(self, path, value, results):
-        super(ObjectSchema)._perform_validation(path, value, results)
+        super(ObjectSchema, self)._perform_validation(path, value, results)
 
         if value == None:
             return
@@ -68,7 +71,7 @@ class ObjecSchema(Schema):
                     del properties[processed_name]
 
         # Process unexpected properties
-        for (key, value) in properties.items:
+        for (key, value) in properties.items():
             property_path = key if path == None or len(path) == 0 else path + "." + key
 
             results.append(

@@ -9,7 +9,24 @@
 
 import pytest
 
+from pip_services_commons.validate import Schema
 from pip_services_commons.validate import IncludedRule
+from pip_services_commons.validate import ExcludedRule
 
 class TestInclusionRules:
-    pass
+
+    def test_included_rule(self):
+        schema = Schema().with_rule(IncludedRule("AAA", "BBB", "CCC", None))
+        results = schema.validate("AAA")
+        assert 0 == len(results)
+
+        results = schema.validate("ABC")
+        assert 1 == len(results)
+
+    def test_excluded_rule(self):
+        schema = Schema().with_rule(ExcludedRule("AAA", "BBB", "CCC", None))
+        results = schema.validate("AAA")
+        assert 1 == len(results)
+
+        results = schema.validate("ABC")
+        assert 0 == len(results)

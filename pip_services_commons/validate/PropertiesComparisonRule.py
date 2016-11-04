@@ -12,6 +12,7 @@
 from .IValidationRule import IValidationRule
 from .ValidationResultType import ValidationResultType
 from .ValidationResult import ValidationResult
+from .ObjectComparator import ObjectComparator
 from ..reflect.ObjectReader import ObjectReader
 
 class PropertiesComparisonRule(IValidationRule):
@@ -25,8 +26,8 @@ class PropertiesComparisonRule(IValidationRule):
         self._property2 = property2
 
     def validate(self, path, schema, value, results):
-        value1 = ObjectReader.get_property(value, _property1)
-        value2 = ObjectReader.get_property(value, _property2)
+        value1 = ObjectReader.get_property(value, self._property1)
+        value2 = ObjectReader.get_property(value, self._property2)
 
         if not ObjectComparator.compare(value1, self._operation, value2):
             results.append(
@@ -34,7 +35,7 @@ class PropertiesComparisonRule(IValidationRule):
                     path,
                     ValidationResultType.Error,
                     "PROPERTIES_NOT_MATCH",
-                    "Property " + str(self._property1) + " is expected to " + str(self._operation) + " property " + str(_property2),
+                    "Property " + str(self._property1) + " is expected to " + str(self._operation) + " property " + str(self._property2),
                     value2,
                     value1
                 )

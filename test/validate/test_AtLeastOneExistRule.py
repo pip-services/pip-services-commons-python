@@ -9,7 +9,22 @@
 
 import pytest
 
+from .TestObject import TestObject
+from pip_services_commons.validate import Schema
 from pip_services_commons.validate import AtLeastOneExistRule
 
 class TestAtLeastOneExistRule:
-    pass
+    
+    def test_only_one_exist_rule(self):
+        obj = TestObject()
+        schema = Schema().with_rule(AtLeastOneExistRule("Missing_Property", "String_Property", "Null_Property"))
+        results = schema.validate(obj)
+        assert 0 == len(results)
+
+        schema = Schema().with_rule(AtLeastOneExistRule("String_Property", "Null_Property", "int_Field"))
+        results = schema.validate(obj)
+        assert 0 == len(results)
+
+        schema = Schema().with_rule(AtLeastOneExistRule("Missing_Property", "Null_Property"))
+        results = schema.validate(obj)
+        assert 1 == len(results)

@@ -16,7 +16,7 @@ class PropertySchema(Schema):
     value_type = None 
 
     def __init__(self, name = None, value_type = None):
-        self._name = name
+        self.name = name
         self.value_type = value_type
 
     def _perform_validation(self, path, value, results):
