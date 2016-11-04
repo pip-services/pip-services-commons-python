@@ -11,12 +11,27 @@
 
 __all__ = [
     'ValidationResultType', 'ValidationResult', 'ValidationException',
-    'IValidationRule'
+    'IValidationRule', 'AndRule', 'OrRule', 'ObjectComparator',
+    'ValueComparisonRule', 'PropertiesComparisonRule',
+    'OnlyOneExistRule', 'AttributeError', 'ExcludedRule', 'IncludedRule',
+    'Schema', 'PropertySchema', 'ObjectSchema', 'ArraySchema', 'MapSchema'
 ]
 
 from .ValidationResultType import ValidationResultType
 from .ValidationResult import ValidationResult
 from .ValidationException import ValidationException
 from .IValidationRule import IValidationRule
-
-
+from .AndRule import AndRule
+from .OrRule import OrRule
+from .ObjectComparator import ObjectComparator
+from .ValueComparisonRule import ValueComparisonRule
+from .PropertiesComparisonRule import PropertiesComparisonRule
+from .OnlyOneExistRule import OnlyOneExistRule
+from .AtLeastOneExistRule import AtLeastOneExistRule
+from .ExcludedRule import ExcludedRule
+from .IncludedRule import IncludedRule
+from .Schema import Schema
+from .PropertySchema import PropertySchema
+from .ObjectSchema import ObjecSchema
+from .ArraySchema import ArraySchema
+from .MapSchema import MapSchema

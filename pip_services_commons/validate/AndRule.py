@@ -9,5 +9,17 @@
     :license: MIT, see LICENSE for more details.
 """
 
-class AndRule(object):
-    pass
+from .IValidationRule import IValidationRule
+
+class AndRule(IValidationRule):
+    _rules = None
+
+    def __init__(self, *rules):
+        self._rules = rules
+    
+    def validate(self, path, schema, value, results):
+        if _rules == None:
+            return
+
+        for rule in self._rules:
+            rule.validate(path, schema, value, results)

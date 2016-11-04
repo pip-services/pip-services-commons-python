@@ -9,160 +9,94 @@
     :license: MIT, see LICENSE for more details.
 """
 
-from .PropertySchema import PropertySchema
+from .ValidationResultType import ValidationResultType
+from .ValidationResult import ValidationResult
+from .ValidationException import ValidationException
+from ..reflect.ObjectReader import ObjectReader
+from ..reflect.TypeMatcher import TypeMatcher
 
 class Schema(object):
-    """
-    Represents a validation schema for complex objects.
-    """
+    required = None
+    rules = None
 
-    _properties = None
-    _rules = None
+    def __init__(self, required = False, rules = None):
+        self.required = required
+        self.rules = rules if rules != None else []
 
-    def __init__(self):
-        """
-        Creates an instance of validation schema
-        """
-        self._properties = []
-        self._rules = []
-
-    def get_properties(self):
-        """
-        Gets a list of object properties
-        Returns PropertySchema list of property validation schemas
-        """
-        return self._properties
-
-    def get_rules(self):
-        """
-        Gets a validation rules for entire object
-        Returns: IValidationRule list of validation rules
-        """
-        return self._rules
-
-    def with_property(self, name, type, *rules): 
-        """
-        Adds to the validation schema a required property defined by a simple type.
-        
-        Args:
-            name: a name of the property to be added
-            type: simple type that defines the property value
-            rules: a set of validation rules for the property
-            
-        Returns: a self reference to the schema for chaining
-        """
-        self._properties.append(PropertySchema(name, False, type, False, rules))
+    def make_required(self):
+        self.required = True
         return self
 
-    def with_array(self, name, type, *rules):
-        """
-        Adds to the validation schema a required property array defined by a simple type.
-        
-        Args:
-            name: a name of the property to be added
-            type: simple type that defines the property value
-            required: a required flag
-            rules: a set of validation rules for the property
-        
-        Returns: a self reference to the schema for chaining
-        """
-        self._properties.append(PropertySchema(name, True, type, False, rules))
+    def make_optional(self):
+        self.required = False
         return self
 
-    def with_optional_property(self, name, type, *rules):
-        """
-        Adds to the validation schema an optional property defined by a simple type.
-        
-        Args:
-            name: a name of the property to be added
-            type: simple type that defines the property value
-            rules: a set of validation rules for the property
-        
-        Returns: a self reference to the schema for chaining
-        """
-        self._properties.append(PropertySchema(name, False, type, True, rules))
+    def with_rule(self, rule):
+        self.rules = self.rules if self.rules != None else []
+        self.rules.append(rule)
         return self
 
-    def with_optional_array(self, name, type, *rules):
-        """
-        Adds to the validation schema an optional property array defined by a simple type.
-        
-        Args:
-            name: a name of the property to be added
-            type: simple type that defines the property value
-            rules: a set of validation rules for the property
-        
-        Returns: a self reference to the schema for chaining
-        """
-        self._properties.append(PropertySchema(name, True, type, True, rules))
-        return self
+    def _perform_validation(self, path, value, results):
+        if value == None:
+            # Check for required values
+            if self.required:
+                results.append(
+                    ValidationResult(
+                        path,
+                        ValidationResultType.Error,
+                        "VALUE_IS_NULL",
+                        "value cannot be null",
+                        "NOT NULL",
+                        None
+                    )
+                )
+        else:
+            value = ObjectReader.get_value(value)
 
-    def with_property_schema(self, name, schema, *rules):
-        """
-        Adds to the validation schema a required property defined by validation schema.
-        
-        Args:
-            name: a name of the property to be added
-            schema: validation schema for the property value
-            required: a required flag
-            rules: a set of validation rules for the property
-        
-        Returns: a self reference to the schema for chaining
-        """
-        self._properties.append(PropertySchema(name, False, schema, False, rules))
-        return self
+            # Check validation rules
+            if self.rules != None:
+                for rule in self.rules:
+                    rule.validate(path, self, value, results)
 
-    def with_array_schema(self, name, schema, *rules):
-        """
-        Adds to the validation schema a required property array defined by validation schema.
-        
-        Args:
-            name: a name of the property to be added
-            schema: validation schema for the property value
-            required: a required flag
-            rules: a set of validation rules for the property
-            
-        Returns: a self reference to the schema for chaining
-        """
-        self._properties.append(PropertySchema(name, True, schema, False, rules))
-        return self
+    def _perform_type_validation(self, path, typ, value, results):
+        # If type it not defined then skip
+        if typ == None:
+            return
 
-    def with_optional_property_schema(self, name, schema, *rules):
-        """
-        Adds to the validation schema an optional property defined by validation schema.
-        
-        Args:
-            name: a name of the property to be added
-            schema: validation schema for the property value
-            rules: a set of validation rules for the property
-        
-        Returns: a self reference to the schema for chaining
-        """
-        self._properties.append(PropertySchema(name, False, schema, True, rules))
-        return self
+        # Perform validation against schema
+        if isinstance(typ, Schema):
+            schema = type
+            schema._perform_validation(path, value, results)
+            return
 
-    def with_optional_array_schema(self, name, schema, *rules):
-        """
-        Adds to the validation schema an optional property array defined by validation schema.
-        
-        Args:
-            name: a name of the property to be added
-            schema: validation schema for the property value
-            rules: a set of validation rules for the property
-        
-        Returns: a self reference to the schema for chaining
-        """
-        self._properties.append(PropertySchema(name, True, schema, True, rules))
-        return self
+        # If value is null then skip
+        value = ObjectReader.get_value(value)
+        if value == None:
+            return
 
-    def with_rule(rule):
-        """
-        Adds a validation rule to this scheme
+        value_type = type(value)
+
+        # Match types
+        if TypeMatcher.match_type(typ, value_type):
+            return
         
-        Args:
-            rule: a validation rule to be added
-        
-        Returns: a self reference to the schema for chaining
-        """
-        self._rules.append(rule)
-        return self
+        # Generate type mismatch error
+        results.append(
+            ValidationResult(
+                path,
+                ValidationResultType.Error,
+                "TYPE_MISMATCH",
+                "Expected type " + str(typ) + " but found " + str(value_type),
+                typ,
+                value_type
+            )
+        )
+
+    def validate(self, value):
+        results = []
+        self._perform_validation("", value, results)
+        return results
+
+    def validate_and_throw_exception(self, correlation_id, value, strict = False):
+        results = self.validate(value)
+        ValidationException.throw_exception_if_needed(correlation_id, results, strict)

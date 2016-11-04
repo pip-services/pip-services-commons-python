@@ -22,7 +22,7 @@ class RandomInteger(object):
         if max - min <= 0:
             return min
 
-        return random.randint(min, max)
+        return random.randint(min, max - 1)
 
     @staticmethod
     def update_integer(value, range = None):

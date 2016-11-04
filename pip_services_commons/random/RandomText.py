@@ -95,6 +95,7 @@ class RandomText(object):
 
     @staticmethod
     def phrase(min_size, max_size = None):
+        max_size = max_size if max_size != None else min_size
         size = RandomInteger.next_integer(min_size, max_size)
         if size <= 0:
             return ""
@@ -125,10 +126,11 @@ class RandomText(object):
         return random.choice(_all_words)
 
     @staticmethod
-    def words(min, max = None):
+    def words(min_size, max_size = None):
+        max_size = max_size if max_size != None else min_size
         result = ""
         
-        count = RandomInteger.next_integer(min, max)
+        count = RandomInteger.next_integer(min_size, max_size)
         for i in range(count):
             result += random.choice(_all_words)
 
@@ -148,6 +150,7 @@ class RandomText(object):
 
     @staticmethod
     def text(min_size, max_size):
+        max_size = max_size if max_size != None else min_size
         size = RandomInteger.next_integer(min_size, max_size)
 
         result = ""

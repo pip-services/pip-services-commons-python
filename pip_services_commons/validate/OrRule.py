@@ -9,5 +9,25 @@
     :license: MIT, see LICENSE for more details.
 """
 
-class OrRule(object):
-    pass
+from .IValidationRule import IValidationRule
+
+class OrRule(IValidationRule):
+    _rules = None
+
+    def __init__(self, *rules):
+        self._rules = rules
+
+    def validate(self, path, schema, value, results):
+        if self._rules == None or len(self._rules) == 0:
+            return
+
+        local_results = []
+
+        for rule in self._rules:
+            results_count = len(local_results)
+            rule.validate(path, schema, value, local_results)
+            if results_count == len(local_results):
+                return
+
+        for result in local_results:
+            results.append(result)

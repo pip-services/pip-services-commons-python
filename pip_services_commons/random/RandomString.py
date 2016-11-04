@@ -47,10 +47,11 @@ class RandomString(object):
         return random.choice(_alpha)
 
     @staticmethod
-    def next_string(min_length, max_length):
+    def next_string(min_size, max_size):
         result = ''
         
-        length = RandomInteger.next_integer(min_length, max_length)
+        max_size = max_size if max_size != None else min_size
+        length = RandomInteger.next_integer(min_size, max_size)
         for i in range(length):
             result += random.choice(_chars)
 
