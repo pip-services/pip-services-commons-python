@@ -9,6 +9,8 @@
     :license: MIT, see LICENSE for more details.
 """
 
+from ..errors.ConfigException import ConfigException
+
 class Descriptor(object):
     """
     Component descriptor used to find a component by its descriptive elements:
@@ -23,7 +25,7 @@ class Descriptor(object):
     _id = None
     _version = None
     
-    def __init__(self, group, type, id, version):
+    def __init__(self, group, typ, id, version):
         """
         Creates instance of a component descriptor
 
@@ -34,12 +36,12 @@ class Descriptor(object):
             version: compatibility version: '1.0'. '1.5' or '10.4'
         """
         group = None if "*" == group else group 
-        type = None if "*" == type else type
+        typ = None if "*" == typ else typ
         id  = None if "*" == id else id
         version = None if "*" == version else version
         
         self._group = group
-        self._type = type
+        self._type = typ
         self._id = id
         self._version = version
 
@@ -119,3 +121,16 @@ class Descriptor(object):
         + ":" + (self._id or "*") \
         + ":" + (self._version or "*")
     
+    @staticmethod
+    def from_string(value):
+        if value == None or len(value) == 0:
+            return None
+                
+        tokens = value.split(":")
+        if len(tokens) != 4:
+            raise ConfigException(
+                None, "BAD_DESCRIPTOR", "Descriptor " + str(value) + " is in wrong format"
+            ).with_details("descriptor", value)
+            
+        return Descriptor(tokens[0].strip(), tokens[1].strip(), tokens[2].strip(), tokens[3].strip())
+

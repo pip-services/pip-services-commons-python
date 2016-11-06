@@ -9,7 +9,7 @@
 
 import time
 
-from pip_services_runtime.counters import CounterType
+from pip_services_commons.count import CounterType
 
 class CountersFixture:
     
