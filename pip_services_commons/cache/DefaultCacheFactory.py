@@ -22,7 +22,7 @@ DefaultCacheFactoryDescriptor = Descriptor(
     "pip-services-commons", "factory", "cache", "1.0"
 )
 
-class DefaultCacheFactory(IFactory, IDescriptable):
+class DefaultCacheFactory(object, IFactory, IDescriptable):
 
     def get_descriptor(self):
         return DefaultCacheFactoryDescriptor

@@ -24,7 +24,7 @@ DefaultCountersFactoryDescriptor = Descriptor(
     "pip-services-commons", "factory", "counters", "1.0"
 )
 
-class DefaultCountersFactory(IFactory, IDescriptable):
+class DefaultCountersFactory(object, IFactory, IDescriptable):
 
     def get_descriptor(self):
         return DefaultCountersFactoryDescriptor

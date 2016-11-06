@@ -24,7 +24,7 @@ DefaultLoggerFactoryDescriptor = Descriptor(
     "pip-services-commons", "factory", "logger", "1.0"
 )
 
-class DefaultLoggerFactory(IFactory, IDescriptable):
+class DefaultLoggerFactory(object, IFactory, IDescriptable):
 
     def get_descriptor(self):
         return DefaultLoggerFactoryDescriptor

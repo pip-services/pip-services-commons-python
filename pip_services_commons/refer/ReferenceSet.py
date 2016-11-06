@@ -16,7 +16,7 @@ from .IUnreferenceable import IUnreferenceable
 from .IReferences import IReferences
 from .Reference import Reference
 
-class ReferenceSet(IReferences):
+class ReferenceSet(object, IReferences):
     """
     Basic implementation of IReferences that stores component as a flat list
     """
@@ -24,7 +24,7 @@ class ReferenceSet(IReferences):
     _references = None
     _lock = None
 
-    def __init__(self, *references):
+    def __init__(self, references = None):
         self._references = []
         self._lock = threading.Lock()
 
@@ -101,17 +101,17 @@ class ReferenceSet(IReferences):
 
     def get_required(self, locator):
         references = self.get_optional(locator)
-        print(references)
-        self._lock.acquire()
-        try:
-            # Try to resolve missing dependency
-            if len(references) == 0:
-                reference = self.resolve_missing(locator)
 
-                if reference != None:
-                    references.append(reference)
-        finally:
-            self._lock.release()
+        #self._lock.acquire()
+        #try:
+        # Try to resolve missing dependency
+        if len(references) == 0:
+            reference = self._resolve_missing(locator)
+
+            if reference != None:
+                references.append(reference)
+        #finally:
+        #    self._lock.release()
 
         if len(references) == 0:
             raise ReferenceException(None, locator)
@@ -135,13 +135,13 @@ class ReferenceSet(IReferences):
     def get_one_required(self, locator):
         reference = self.get_one_optional(locator)
 
-        self._lock.acquire()
-        try:
-            # Try to create a missing reference
-            if reference == None:
-                reference = self.resolve_missing(locator)
-        finally:
-            self._lock.release()
+        #self._lock.acquire()
+        #try:
+        # Try to create a missing reference
+        if reference == None:
+            reference = self._resolve_missing(locator)
+        #finally:
+        #    self._lock.release()
 
         if reference == None:
             raise ReferenceException(None, locator)
@@ -181,4 +181,4 @@ class ReferenceSet(IReferences):
 
     @staticmethod
     def from_list(*references):
-        return ReferenceSet(*references)
+        return ReferenceSet(references)

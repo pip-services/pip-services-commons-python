@@ -16,5 +16,7 @@ class ReferenceException(InternalException):
     Exception thrown when required component is not found in references
     """
 
-    def __init__(self, correlation_id = None, message = None):
+    def __init__(self, correlation_id = None, locator = None):
+        message = 'Cannot locate reference: ' + (str(locator) if locator != None else '<None>')
         super(ReferenceException, self).__init__(correlation_id, "REF_ERROR", message)
+        self.with_details('locator', locator)

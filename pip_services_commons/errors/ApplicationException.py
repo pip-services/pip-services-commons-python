@@ -35,9 +35,10 @@ class ApplicationException(Exception):
         self.code = code
         self.category = category
         self.name = code
+        self.stack_trace = traceback.format_exc()
         
     def __str__(self):
-        return self.message
+        return str(self.message) if self.message != None else 'Unknown error'
 
     def to_json(self):
         return { 
@@ -60,8 +61,8 @@ class ApplicationException(Exception):
     def get_stack_trace_string(self):
         if (self.stack_trace != None):
             return self.stack_trace
-        elif (hasattr(self, 'tb_frame')):
-            return traceback.format_tb(self)
+        # elif (hasattr(self, 'tb_frame')):
+        #     return traceback.format_tb(self)
         else:
             return None
 

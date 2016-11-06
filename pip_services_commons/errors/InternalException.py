@@ -18,5 +18,5 @@ class InternalException(ApplicationException):
     """
 
     def __init__(self, correlation_id = None, code = None, message = None):
-        super(InternalError, self).__init__(ErrorCategory.Internal, correlation_id, code, message)
+        super(InternalException, self).__init__(ErrorCategory.Internal, correlation_id, code, message)
         self.status = 500

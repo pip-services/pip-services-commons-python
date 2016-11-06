@@ -11,7 +11,7 @@
 
 from .IFactory import IFactory
 
-class CompositeFactory(IFactory):
+class CompositeFactory(object, IFactory):
     _factories = None
 
     def __init__(self, *factories):
@@ -24,7 +24,7 @@ class CompositeFactory(IFactory):
         if factory == None:
             raise Exception("Factory cannot be null")
         
-        self._factories.add(factory)
+        self._factories.append(factory)
 
 
     def remove(self, factory):
@@ -42,11 +42,10 @@ class CompositeFactory(IFactory):
         
         return False
 
-
-    def create(locator):
+    def create(self, locator):
         if locator == None:
             raise Exception("Locator cannot be null")
-        
+
         # Iterate from the latest factories
         for factory in reversed(self._factories):
             if factory.can_create(locator):

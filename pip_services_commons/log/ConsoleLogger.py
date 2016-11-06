@@ -11,6 +11,7 @@
 
 import sys
 import datetime
+import traceback
 
 from .LogLevel import LogLevel
 from .ILogger import ILogger
@@ -29,13 +30,21 @@ class ConsoleLogger(Logger, IDescriptable):
 
     def _compose_error(self, error):
         result = ""
-        while (error != None):
-            if (len(result) > 0):
+        while error != None:
+            if len(result) > 0:
                 result += " Cause by error: "
 
-            result += result + str(error) + " StackTrace: " + error.stack_trace
+            result += result + str(error)
+            
+            if error.stack_trace != None:
+                result += " StackTrace: " + error.stack_trace
 
-            error = error.__traceback__
+            if hasattr(error, 'cause'):
+                error = error.cause
+            elif hasattr(error, '__traceback__'):
+                error = error.__traceback__
+            else:
+                error = None
 
         return result
 
@@ -53,8 +62,8 @@ class ConsoleLogger(Logger, IDescriptable):
 
         output += message
 
-        if (error != None):
-            if (len(message) == 0):
+        if error != None:
+            if len(message) == 0:
                 output += "Error: "
             else:
                 output += ": "

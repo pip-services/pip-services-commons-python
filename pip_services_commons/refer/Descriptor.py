@@ -116,10 +116,15 @@ class Descriptor(object):
         return not self.__eq__(other)
 
     def __str__(self):
-        return (self._group or "*") \
-        + ":" + (self._type or "*") \
-        + ":" + (self._id or "*") \
-        + ":" + (self._version or "*")
+        result = ''
+        result += self._group if self._group != None else '*'
+        result += ':'
+        result += self._type if self._type != None else '*'
+        result += ':'
+        result += self._id if self._id != None else '*'
+        result += ':'
+        result += self._version if self._version != None else '*'
+        return result
     
     @staticmethod
     def from_string(value):

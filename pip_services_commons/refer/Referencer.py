@@ -17,7 +17,8 @@ class Referencer:
     Helper class that assigns references to components
     """
 
-    def set_references(self, references, components):
+    @staticmethod
+    def set_references(references, components):
         """
         Assigns references to components that implement IReferenceable interface  
 
@@ -32,7 +33,8 @@ class Referencer:
             if isinstance(component, IReferenceable):
                 component.set_references(references)
 
-    def unset_references(self, components):
+    @staticmethod
+    def unset_references(components):
         """
         Clears references for components that implement IUnreferenceable interface
 

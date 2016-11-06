@@ -38,7 +38,7 @@ class TypeDescriptor:
 
     def __str__(self):
         result = self._name
-        if _library != None:
+        if self._library != None:
             result += ','+ self._library
         return result
 
