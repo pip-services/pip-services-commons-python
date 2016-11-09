@@ -9,7 +9,9 @@
     :license: MIT, see LICENSE for more details.
 """
 
-class FilterParams(dict):
+from .StringValueMap import StringValueMap
+
+class FilterParams(StringValueMap):
     """
     Stores free-form parameters as key-value pairs
     """
@@ -19,21 +21,13 @@ class FilterParams(dict):
             for (key, value) in map.items():
                 self[key] = value
 
-    # @staticmethod
-    # def from_value(value):
-    #     if isinstance(value, FilterParams):
-    #         return value
-    #     if isinstance(value, DynamicMap):
-    #         return FilterParams(value)
-        
-    #     return FilterParams(DynamicMap.from_value(value))
+    @staticmethod
+    def from_tuples(*tuples):
+        filter = FilterParams()
+        filter.set_tuples_array(tuples)
+        return filter
 
-    # @staticmethod
-    # def from_tuples(*tuples):
-    #     filter = FilterParams()
-    #     filter.set_tuples_array(tuples)
-    #     return filter
-
-    # @staticmethod
-    # def from_map(map):
-    #     return FilterParams(map)
+    @staticmethod
+    def from_string(line):
+        map = StringValueMap.from_string(line)
+        return FilterParams(map)

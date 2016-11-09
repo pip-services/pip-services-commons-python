@@ -9,7 +9,7 @@
     :license: MIT, see LICENSE for more details.
 """
 
-class DataPage:
+class DataPage(object):
     """
     Represents a page with optional total record counter
     """
