@@ -53,7 +53,7 @@ class AnyValueMap(dict):
     def get_as_map(self, key):
         if key == None:
             map = {}
-            for (k, v) in self:
+            for (k, v) in self.items():
                 map[k] = v
             return map
         else:
@@ -220,7 +220,7 @@ class AnyValueMap(dict):
             return result
 
         for map in maps:
-            for (key, value) in map:
+            for (key, value) in map.items():
                 key = StringConverter.to_string(key)
                 result.put(key, value)
 

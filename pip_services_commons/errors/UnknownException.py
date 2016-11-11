@@ -18,5 +18,5 @@ class UnknownException(ApplicationException):
     """
 
     def __init__(self, correlation_id = None, code = None, message = None):
-        super(UnknownError, self).__init__(ErrorCategory.Unknown, correlation_id, code, message)
+        super(UnknownException, self).__init__(ErrorCategory.Unknown, correlation_id, code, message)
         self.status = 500

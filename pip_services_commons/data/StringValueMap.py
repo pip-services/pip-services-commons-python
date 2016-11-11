@@ -52,7 +52,7 @@ class StringValueMap(dict):
     def get_as_map(self, key):
         if key == None:
             map = {}
-            for (k, v) in self:
+            for (k, v) in self.items():
                 map[k] = v
             return map
         else:
@@ -165,7 +165,7 @@ class StringValueMap(dict):
     def __str__(self):
         result = ''
 
-        for (k, v) in self:
+        for (k, v) in self.items():
             if len(result) > 0:
                 result += ';'
 
@@ -228,7 +228,7 @@ class StringValueMap(dict):
             return result
 
         for map in maps:
-            for (k, v) in map:
+            for (k, v) in map.items():
                 key = StringConverter.to_string(k)
                 result.put(key, v)
 

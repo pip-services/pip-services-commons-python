@@ -26,9 +26,10 @@ class MapConverter(object):
             return data
         elif hasattr(value, "__dict__"):
             data = {} 
-            for key, value in value.__dict__.iteritems(): 
-                if not callable(value) and not key.startswith('_'):
-                    data[key] = value
+            for k in dir(value):
+                v = getattr(value, k) 
+                if not callable(v) and not k.startswith('_'):
+                    data[k] = v
             return data
         else:
             return None
