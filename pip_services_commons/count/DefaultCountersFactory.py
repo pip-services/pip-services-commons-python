@@ -21,7 +21,7 @@ from ..refer.IDescriptable import IDescriptable
 from ..build.IFactory import IFactory
 
 DefaultCountersFactoryDescriptor = Descriptor(
-    "pip-services-commons", "factory", "counters", "1.0"
+    "pip-services-commons", "factory", "counters", "default", "1.0"
 )
 
 class DefaultCountersFactory(object, IFactory, IDescriptable):

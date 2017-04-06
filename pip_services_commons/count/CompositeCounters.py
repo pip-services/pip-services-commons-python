@@ -17,7 +17,7 @@ from ..refer.IDescriptable import IDescriptable
 from ..refer.IReferenceable import IReferenceable
 
 CompositeCountersDescriptor = Descriptor(
-    "pip-services-commons", "counters", "composite", "1.0"
+    "pip-services-commons", "counters", "composite", "default", "1.0"
 )
 
 class CompositeCounters(ICounters, ITimingCallback, IDescriptable, IReferenceable):
@@ -33,7 +33,7 @@ class CompositeCounters(ICounters, ITimingCallback, IDescriptable, IReferenceabl
         return CompositeCountersDescriptor
 
     def set_references(self, references):
-        descriptor = Descriptor(None, "counters", None, None)
+        descriptor = Descriptor(None, "counters", None, None, None)
         counters = references.get_optional(descriptor)
         for counter in counters:
             if isinstance(counter, ICounters):

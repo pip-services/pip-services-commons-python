@@ -15,7 +15,7 @@ from ..refer.Descriptor import Descriptor
 from ..refer.IDescriptable import IDescriptable
 
 NullLoggerDescriptor = Descriptor(
-    "pip-services-commons", "logger", "null", "1.0"
+    "pip-services-commons", "logger", "null", "default", "1.0"
 )
 
 class NullLogger(ILogger, IDescriptable):

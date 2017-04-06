@@ -15,7 +15,7 @@ from ..refer.Descriptor import Descriptor
 from ..refer.IDescriptable import IDescriptable
 
 NullCountersDescriptor = Descriptor(
-    "pip-services-commons", "counters", "null", "1.0"
+    "pip-services-commons", "counters", "null", "default", "1.0"
 )
 
 class NullCounters(ICounters, IDescriptable):

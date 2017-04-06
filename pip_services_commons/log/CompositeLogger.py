@@ -16,7 +16,7 @@ from ..refer.IDescriptable import IDescriptable
 from ..refer.IReferenceable import IReferenceable
 
 CompositeLoggerDescriptor = Descriptor(
-    "pip-services-commons", "logger", "composite", "1.0"
+    "pip-services-commons", "logger", "composite", "default", "1.0"
 )
 
 class CompositeLogger(Logger, IDescriptable, IReferenceable):
@@ -32,7 +32,7 @@ class CompositeLogger(Logger, IDescriptable, IReferenceable):
         return CompositeLoggerDescriptor
 
     def set_references(self, references):
-        descriptor = Descriptor(None, "logger", None, None)
+        descriptor = Descriptor(None, "logger", None, None, None)
         loggers = references.get_optional(descriptor)
         for logger in loggers:
             if isinstance(logger, ILogger):

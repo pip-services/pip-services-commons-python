@@ -20,7 +20,7 @@ from ..refer.Descriptor import Descriptor
 from ..refer.IDescriptable import IDescriptable
 
 ConsoleLoggerDescriptor = Descriptor(
-    "pip-services-commons", "logger", "console", "1.0"
+    "pip-services-commons", "logger", "console", "default", "1.0"
 )
 
 class ConsoleLogger(Logger, IDescriptable):

@@ -15,7 +15,7 @@ from ..refer.IDescriptable import IDescriptable
 from ..refer.Descriptor import Descriptor
 
 NullCacheDescriptor = Descriptor(
-    "pip-services-commons", "cache", "null", "1.0"
+    "pip-services-commons", "cache", "null", "default", "1.0"
 )
 
 class NullCache(ICache, IDescriptable):

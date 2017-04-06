@@ -21,7 +21,7 @@ from ..refer.IDescriptable import IDescriptable
 from ..build.IFactory import IFactory
 
 DefaultLoggerFactoryDescriptor = Descriptor(
-    "pip-services-commons", "factory", "logger", "1.0"
+    "pip-services-commons", "factory", "logger", "default", "1.0"
 )
 
 class DefaultLoggerFactory(object, IFactory, IDescriptable):

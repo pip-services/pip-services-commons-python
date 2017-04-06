@@ -56,7 +56,7 @@ class ConnectionResolver(object, IConfigurable, IReferenceable):
         if self._references == None:
             return False
         
-        descriptor = Descriptor("*", "discovery", "*", "*")
+        descriptor = Descriptor("*", "discovery", "*", "*", "*")
         components = self._references.get_optional(descriptor)
         if components == None:
             return False

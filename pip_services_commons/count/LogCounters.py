@@ -18,7 +18,7 @@ from ..refer.IDescriptable import IDescriptable
 from ..refer.IReferenceable import IReferenceable
 
 LogCountersDescriptor = Descriptor(
-    "pip-services-commons", "counters", "log", "1.0"
+    "pip-services-commons", "counters", "log", "default", "1.0"
 )
 
 class LogCounters(CachedCounters, IDescriptable, IReferenceable):

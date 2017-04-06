@@ -20,7 +20,7 @@ from ..refer.IDescriptable import IDescriptable
 from ..refer.Descriptor import Descriptor
 
 MemoryCacheDescriptor = Descriptor(
-    "pip-services-commons", "cache", "memory", "1.0"
+    "pip-services-commons", "cache", "memory", "default", "1.0"
 )
 
 class MemoryCache(object, ICache, IDescriptable, IReconfigurable, ICleanable):

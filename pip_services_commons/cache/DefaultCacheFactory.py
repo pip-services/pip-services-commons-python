@@ -19,7 +19,7 @@ from ..refer.IDescriptable import IDescriptable
 from ..build.IFactory import IFactory
 
 DefaultCacheFactoryDescriptor = Descriptor(
-    "pip-services-commons", "factory", "cache", "1.0"
+    "pip-services-commons", "factory", "cache", "default", "1.0"
 )
 
 class DefaultCacheFactory(object, IFactory, IDescriptable):
