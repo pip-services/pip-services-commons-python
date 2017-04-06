@@ -15,11 +15,15 @@ import json
 from ..errors.FileException import FileException
 from ..errors.ConfigException import ConfigException
 from .ConfigParams import ConfigParams
+from .FileConfigReader import FileConfigReader
 
-class JsonConfigReader(object):
+class JsonConfigReader(FileConfigReader):
     
-    @staticmethod
-    def read_object(correlation_id, path):
+    def __init__(self, path):
+        super(JsonConfigReader, self).__init__(path)
+
+    def _read_object(self, correlation_id):
+        path = self.get_path()
         if path == None:
             raise ConfigException(correlation_id, "NO_PATH", "Missing config file path")
         
@@ -36,8 +40,15 @@ class JsonConfigReader(object):
                 "Failed reading configuration " + path + ": " + str(ex)
             ).with_details("path", path).with_cause(ex)
 
+    def _perform_read_config(correlation_id):
+        value = self._read_object(correlation_id)
+        return ConfigParams.from_value(value)
+
+    @staticmethod
+    def read_object(correlation_id, path):
+        return JsonConfigReader(path)._read_object(correlation_id)
 
     @staticmethod
     def read_config(correlation_id, path):
-        value = JsonConfigReader.read_object(correlation_id, path)
+        value = JsonConfigReader(path)._read_object(correlation_id)
         return ConfigParams.from_value(value)

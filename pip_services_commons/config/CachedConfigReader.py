@@ -33,7 +33,7 @@ class CachedConfigReader(object, IConfigReader, IReconfigurable):
     def configure(self, config):
         self._timeout = config.get_as_long_with_default("timeout", self._timeout)
 
-    def perform_read_config(self, correlation_id):
+    def _perform_read_config(self, correlation_id):
         raise NotImplementedError('Method is abstract and must be overriden')
 
     def read_config(correlation_id):
@@ -42,7 +42,7 @@ class CachedConfigReader(object, IConfigReader, IReconfigurable):
         if self._config != null and timestamp < self._last_read + self._timeout:
             return self._config
 
-        self._config = self.perform_read_config(correlation_id)
+        self._config = self._perform_read_config(correlation_id)
         self._last_read = timestamp
 
         return self._config
