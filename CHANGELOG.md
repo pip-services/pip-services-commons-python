@@ -11,6 +11,10 @@
 * **commands** Added ICommandable
 * **refer** Added ReferenceQuery
 * **config** Added NameResolver
+* **config** Added OptionsResolver
+* **config** Added IConfigReader
+* **config** Added CachedConfigReader
+* **config** Added FileConfigReader
 
 ### Breaking Changes
 * **run** Removed IParamExecutable. Now IExecutable takes args

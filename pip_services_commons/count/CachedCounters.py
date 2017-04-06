@@ -34,7 +34,7 @@ class CachedCounters(object, ICounters, IReconfigurable, ITimingCallback):
         self._cache = {}
         self._updated = False
         self._last_dump_time = time.clock()
-        self._interval = self._default_interval / 1000
+        self._interval = self._default_interval
         self._lock = threading.Lock()
 
 
@@ -43,7 +43,7 @@ class CachedCounters(object, ICounters, IReconfigurable, ITimingCallback):
 
 
     def configure(self, config):
-        self._interval = config.get_as_float_with_default("interval", self._default_interval) / 1000 
+        self._interval = config.get_as_float_with_default("interval", self._interval)
 
 
     def clear(self, name):
@@ -65,7 +65,7 @@ class CachedCounters(object, ICounters, IReconfigurable, ITimingCallback):
 
     def dump(self):
         if self._updated:
-            messages = self.get_all()                
+            messages = self.get_all()
             self._save(messages)
 
             self._lock.acquire()
@@ -79,7 +79,7 @@ class CachedCounters(object, ICounters, IReconfigurable, ITimingCallback):
     def _update(self):
         self._updated = True
         
-        if time.clock() > self._last_dump_time + self._interval:
+        if time.clock() > self._last_dump_time + (self._interval / 1000):
             try:
                 self.dump()
             except:

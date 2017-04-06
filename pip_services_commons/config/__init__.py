@@ -11,13 +11,18 @@
 
 __all__ = [
     'IConfigurable', 'IReconfigurable', 'ConfigParams',
+    'IConfigReader', 'CachedConfigReader', 'FileConfigReader',
     'JsonConfigReader', 'YamlConfigReader',
-    'NameResolver'
+    'NameResolver', 'OptionsResolver'
 ]
 
 from .IConfigurable import IConfigurable
 from .IReconfigurable import IReconfigurable
 from .ConfigParams import ConfigParams
+from .IConfigReader import IConfigReader
+from .CachedConfigReader import CachedConfigReader
+from .FileConfigReader import FileConfigReader
 from .JsonConfigReader import JsonConfigReader
 from .YamlConfigReader import YamlConfigReader
 from .NameResolver import NameResolver
+from .OptionsResolver import OptionsResolver
