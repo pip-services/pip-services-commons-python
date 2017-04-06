@@ -36,7 +36,7 @@ class AnyValueMap(dict):
         self[key] = value
 
     def remove(self, key):
-        del self[key]
+        self.pop(key)
 
     def append(self, map):
         if isinstance(map, dict):

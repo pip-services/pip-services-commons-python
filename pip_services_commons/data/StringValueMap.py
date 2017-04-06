@@ -37,6 +37,9 @@ class StringValueMap(dict):
     def put(self, key, value):
         self[key] = StringConverter.to_nullable_string(value)
 
+    def remove(self, key):
+        self.pop(key)
+
     def get_as_object(self, key = None):
         if key == None:
             return self.get_as_map()

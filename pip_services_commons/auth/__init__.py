@@ -9,9 +9,12 @@
     :license: MIT, see LICENSE for more details.
 """
 
-__all__ = [ 'CredentialParams', 'ICredentialStore', 'CredentialResolver' ]
+__all__ = [ 'CredentialParams', 'ICredentialStore', 'CredentialResolver',
+    'MemoryCredentialStore', 'DefaultCredentialStoreFactory' ]
 
 from .CredentialParams import CredentialParams
 from .ICredentialStore import ICredentialStore
 from .CredentialResolver import CredentialResolver
+from .MemoryCredentialStore import MemoryCredentialStore
+from .DefaultCredentialStoreFactory import DefaultCredentialStoreFactory
 

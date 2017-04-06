@@ -14,52 +14,27 @@ from .LogCounters import LogCounters
 from .CompositeCounters import CompositeCounters
 
 from ..refer.Descriptor import Descriptor
-from ..refer.IDescriptable import IDescriptable
-from ..build.IFactory import IFactory
+from ..build.Factory import Factory
 
 DefaultCountersFactoryDescriptor = Descriptor(
     "pip-services-commons", "factory", "counters", "default", "1.0"
 )
 
 NullCountersDescriptor = Descriptor(
-    "pip-services-commons", "counters", "null", "default", "1.0"
+    "pip-services-commons", "counters", "null", "*", "1.0"
 )
 
 LogCountersDescriptor = Descriptor(
-    "pip-services-commons", "counters", "log", "default", "1.0"
+    "pip-services-commons", "counters", "log", "*", "1.0"
 )
 
 CompositeCountersDescriptor = Descriptor(
-    "pip-services-commons", "counters", "composite", "default", "1.0"
+    "pip-services-commons", "counters", "composite", "*", "1.0"
 )
 
-class DefaultCountersFactory(object, IFactory, IDescriptable):
+class DefaultCountersFactory(Factory):
 
-    def get_descriptor(self):
-        return DefaultCountersFactoryDescriptor
-
-    def can_create(self, locator):
-        if isinstance(locator, Descriptor):
-            if locator.match(NullCountersDescriptor):
-                return True
-
-            if locator.match(LogCountersDescriptor):
-                return True
-            
-            if locator.match(CompositeCountersDescriptor):
-                return True
-
-        return False
-
-    def create(self, locator):
-        if isinstance(locator, Descriptor):
-            if locator.match(NullCountersDescriptor):
-                return NullCounters()
-
-            if locator.match(LogCountersDescriptor):
-                return LogCounters()
-            
-            if locator.match(CompositeCountersDescriptor):
-                return CompositeCounters()
-
-        return None
+    def __init__(self):
+        self.register_as_type(NullCountersDescriptor, NullCounters)
+        self.register_as_type(LogCountersDescriptor, LogCounters)
+        self.register_as_type(CompositeCountersDescriptor, CompositeCounters)

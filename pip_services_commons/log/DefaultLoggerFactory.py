@@ -14,52 +14,27 @@ from .ConsoleLogger import ConsoleLogger
 from .CompositeLogger import CompositeLogger
 
 from ..refer.Descriptor import Descriptor
-from ..refer.IDescriptable import IDescriptable
-from ..build.IFactory import IFactory
+from ..build.Factory import Factory
 
 DefaultLoggerFactoryDescriptor = Descriptor(
     "pip-services-commons", "factory", "logger", "default", "1.0"
 )
 
 NullLoggerDescriptor = Descriptor(
-    "pip-services-commons", "logger", "null", "default", "1.0"
+    "pip-services-commons", "logger", "null", "*", "1.0"
 )
 
 ConsoleLoggerDescriptor = Descriptor(
-    "pip-services-commons", "logger", "console", "default", "1.0"
+    "pip-services-commons", "logger", "console", "*", "1.0"
 )
 
 CompositeLoggerDescriptor = Descriptor(
-    "pip-services-commons", "logger", "composite", "default", "1.0"
+    "pip-services-commons", "logger", "composite", "*", "1.0"
 )
 
-class DefaultLoggerFactory(object, IFactory, IDescriptable):
+class DefaultLoggerFactory(Factory):
 
-    def get_descriptor(self):
-        return DefaultLoggerFactoryDescriptor
-
-    def can_create(self, locator):
-        if isinstance(locator, Descriptor):
-            if locator.match(NullLoggerDescriptor):
-                return True
-
-            if locator.match(ConsoleLoggerDescriptor):
-                return True
-            
-            if locator.match(CompositeLoggerDescriptor):
-                return True
-
-        return False
-
-    def create(self, locator):
-        if isinstance(locator, Descriptor):
-            if locator.match(NullLoggerDescriptor):
-                return NullLogger()
-
-            if locator.match(ConsoleLoggerDescriptor):
-                return ConsoleLogger()
-            
-            if locator.match(CompositeLoggerDescriptor):
-                return CompositeLogger()
-
-        return None
+    def __init__(self):
+        self.register_as_type(NullLoggerDescriptor, NullLogger)
+        self.register_as_type(ConsoleLoggerDescriptor, ConsoleLogger)
+        self.register_as_type(CompositeLoggerDescriptor, CompositeLogger)
