@@ -145,7 +145,7 @@ class References(object, IReferences):
                     components.append(component)
                 index = index + (1 if query.ascending else -1)
 
-            if len(component) == 0 and required:
+            if len(components) == 0 and required:
                 raise ReferenceException(None, query.locator)
         finally:
             self._lock.release()
