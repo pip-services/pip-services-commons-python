@@ -27,6 +27,9 @@ class AnyValueArray(list):
             for value in values:
                 self.append(value)
 
+    def clear(self):
+        del self[:]
+
     def get_as_object(self, index = None):
         if index == None:
             return self.get_as_array()

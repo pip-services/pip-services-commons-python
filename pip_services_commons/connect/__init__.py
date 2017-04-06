@@ -9,9 +9,12 @@
     :license: MIT, see LICENSE for more details.
 """
 
-__all__ = [ 'ConnectionParams', 'IDiscovery', 'ConnectionResolver' ]
+__all__ = [ 'ConnectionParams', 'IDiscovery', 'ConnectionResolver',
+    'MemoryDiscovery', 'DefaultDiscoveryFactory' ]
 
 from .ConnectionParams import ConnectionParams
 from .IDiscovery import IDiscovery
 from .ConnectionResolver import ConnectionResolver
+from .MemoryDiscovery import MemoryDiscovery
+from .DefaultDiscoveryFactory import DefaultDiscoveryFactory
 
