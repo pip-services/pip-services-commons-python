@@ -42,7 +42,7 @@ class Referencer:
             return
 
         for component in components:
-            self.set_references_for_one(references, component)
+            Referencer.set_references_for_one(references, component)
 
     @staticmethod
     def unset_references_for_one(component):
@@ -67,4 +67,4 @@ class Referencer:
             return
 
         for component in components:
-            self.unset_references_for_one(component)
+            Referencer.unset_references_for_one(component)
