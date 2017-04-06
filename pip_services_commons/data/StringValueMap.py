@@ -27,6 +27,12 @@ class StringValueMap(dict):
             for (k, v) in map.items():
                 self.put(k, v)
 
+    def get_key_names(self):
+        names = []
+        for (k, _) in self.items():
+            names.append(k)
+        return names
+
     def get(self, key):
         key = key.lower()
         for (k, v) in self.items():

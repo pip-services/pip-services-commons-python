@@ -10,6 +10,7 @@
 * **connect** Added DefaultCredentialStoreFactory
 * **commands** Added ICommandable
 * **refer** Added ReferenceQuery
+* **refer** Added DependencyResolver
 * **config** Added NameResolver
 * **config** Added OptionsResolver
 * **config** Added IConfigReader

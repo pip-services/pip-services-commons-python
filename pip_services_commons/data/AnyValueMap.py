@@ -25,6 +25,12 @@ class AnyValueMap(dict):
     def __init__(self, map = None):
         self.append(map)
 
+    def get_key_names(self):
+        names = []
+        for (k, _) in self.items():
+            names.append(k)
+        return names
+
     def get(self, key):
         key = key.lower()
         for (k, v) in self.items():
