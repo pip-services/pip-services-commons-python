@@ -12,7 +12,8 @@ import pytest
 from pip_services_commons.log import ConsoleLogger
 from pip_services_commons.log import NullLogger
 from pip_services_commons.log import CompositeLogger
-from pip_services_commons.refer.ReferenceSet import ReferenceSet
+from pip_services_commons.refer.Descriptor import Descriptor
+from pip_services_commons.refer.References import References
 from .LoggerFixture import LoggerFixture
 
 class TestCompositeLogger:
@@ -21,7 +22,10 @@ class TestCompositeLogger:
     fixture = None
 
     def setup_method(self, method):
-        refs = ReferenceSet.from_list(ConsoleLogger(), NullLogger())
+        refs = References.from_tuples(
+            Descriptor('pip-services-commons', 'logger', 'console', 'default', '1.0'), ConsoleLogger(), 
+            Descriptor('pip-services-commons', 'logger', 'null', 'default', '1.0'), NullLogger()
+        )
 
         self.log = CompositeLogger(refs)
         self.fixture = LoggerFixture(self.log)

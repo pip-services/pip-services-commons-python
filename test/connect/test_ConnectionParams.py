@@ -51,9 +51,7 @@ class TestConnectionParams:
 
     def test_uri(self):
         connection = ConnectionParams()
-        assert "http://localhost:0" == connection.get_uri()
+        assert None == connection.get_uri()
         
-        connection.set_protocol("https")
-        connection.set_port(3000)
-        connection.set_host("pipgoals")
+        connection.set_uri("https://pipgoals:3000")
         assert "https://pipgoals:3000" == connection.get_uri()

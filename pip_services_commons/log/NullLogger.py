@@ -11,17 +11,8 @@
 
 from .LogLevel import LogLevel
 from .ILogger import ILogger
-from ..refer.Descriptor import Descriptor
-from ..refer.IDescriptable import IDescriptable
 
-NullLoggerDescriptor = Descriptor(
-    "pip-services-commons", "logger", "null", "default", "1.0"
-)
-
-class NullLogger(ILogger, IDescriptable):
-
-    def get_descriptor(self):
-        return NullLoggerDescriptor
+class NullLogger(object, ILogger):
 
     def get_level(self):
         return LogLevel.Nothing

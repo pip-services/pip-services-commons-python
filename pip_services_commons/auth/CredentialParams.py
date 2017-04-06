@@ -59,7 +59,9 @@ class CredentialParams(ConfigParams):
         Gets the user name / login.
         Returns: the user name
         """
-        return self.get_as_nullable_string("username")
+        username = self.get_as_nullable_string("username")
+        username = username if username != None else self.get_as_nullable_string("user")
+        return username
 
     def set_username(self, value):
         """
@@ -75,7 +77,9 @@ class CredentialParams(ConfigParams):
         Gets the service user password.
         Returns: the user password
         """
-        return self.get_as_nullable_string("password")
+        password = self.get_as_nullable_string("password")
+        password = password if password != None else self.get_as_nullable_string("pass")
+        return password
 
     def set_password(self, password):
         """
@@ -126,3 +130,26 @@ class CredentialParams(ConfigParams):
     def from_string(line):
         map = StringValueMap.from_string(line)
         return CredentialParams(map)
+
+    @staticmethod
+    def many_from_config(config):
+        result = []
+
+        # Try to get multiple credentials first
+        credentials = config.get_section("credentials")
+        if len(credentials) > 0:
+            sections_names = credentials.get_section_names()
+            for section in sections_names:
+                credential = credentials.get_section(section)
+                result.append(CredentialParams(credential))
+        # Then try to get a single credential
+        else:
+            credential = config.get_section("credential")
+            result.append(CredentialParams(credential))
+
+        return result
+
+    @staticmethod
+    def from_config(config):
+        credentials = CredentialParams.many_from_config(config)
+        return credentials[0] if len(credentials) > 0 else None

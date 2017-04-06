@@ -13,7 +13,7 @@ from pip_services_commons.config import ConfigParams
 from pip_services_commons.auth import CredentialParams
 from pip_services_commons.connect import ConnectionParams
 from pip_services_commons.connect import ConnectionResolver
-from pip_services_commons.refer import ReferenceSet
+from pip_services_commons.refer import References
 
 RestConfig = ConfigParams.from_tuples(
     "connection.protocol", "http",
@@ -42,7 +42,7 @@ class TestConnectionResolver:
         config_list = connection_resolver.get_all()
         assert 1 == len(config_list)
         
-        references = ReferenceSet()
+        references = References()
         connection_resolver.set_references(references)
         connection_resolver.register("correlation_id", connection_params)
         config_list = connection_resolver.get_all()
@@ -65,7 +65,7 @@ class TestConnectionResolver:
             "connection.port", 3000,
             "connection.discovery_key", "Discovery key value"
         )
-        references = ReferenceSet()
+        references = References()
         connection_resolver = ConnectionResolver(RestConfigDiscovery, references)
         try:
             connection_params = connection_resolver.resolve("correlation_id")

@@ -31,17 +31,9 @@ class ConnectionResolver(object, IConfigurable, IReferenceable):
         self._references = references
 
     def configure(self, config):
-        # Try to get multiple connections first
-        connections = config.get_section("connections")
-        if len(connections) > 0:
-            connection_sections = connections.get_section_names()
-            for section in connection_sections:
-                connection = connections.get_section(section)
-                self._connections.append(ConnectionParams(connection))
-        # Then try to get a single connection
-        else:
-            connection = config.get_section("connection")
-            self._connections.append(ConnectionParams(connection))
+        connections = ConnectionParams.many_from_config(config)
+        for connection in connections:
+            self._connections.append(connection)
 
     def get_all(self):
         return self._connections

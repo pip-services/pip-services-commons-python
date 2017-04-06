@@ -12,7 +12,7 @@ import pytest
 from pip_services_commons.config import ConfigParams
 from pip_services_commons.auth import CredentialParams
 from pip_services_commons.auth import CredentialResolver
-from pip_services_commons.refer import ReferenceSet
+from pip_services_commons.refer import References
 
 RestConfig = ConfigParams.from_tuples(
     "credential.username", "Negrienko",
@@ -52,7 +52,7 @@ class TestCredentialResolver:
         credential = credential_resolver.lookup("correlation_id")
         assert None == credential
         
-        credential_resolver.set_references(ReferenceSet())
+        credential_resolver.set_references(References())
         try:
             credential = credential_resolver.lookup("correlation_id")
         except Exception as ex:

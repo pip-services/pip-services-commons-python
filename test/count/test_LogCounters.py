@@ -9,7 +9,8 @@
 
 import pytest
 
-from pip_services_commons.refer import ReferenceSet
+from pip_services_commons.refer import Descriptor
+from pip_services_commons.refer import References
 from pip_services_commons.log import ConsoleLogger
 from pip_services_commons.count import LogCounters
 from .CountersFixture import CountersFixture
@@ -20,7 +21,9 @@ class TestLogCounters:
     fixture = None
 
     def setup_method(self, method):
-        refs = ReferenceSet.from_list(ConsoleLogger())
+        refs = References.from_tuples(
+            Descriptor('pip-services-commons', 'logger', 'console', 'default', '1.0'), ConsoleLogger()
+        )
 
         self.counters = LogCounters()
         self.counters.set_references(refs)

@@ -32,17 +32,9 @@ class CredentialResolver(object, IConfigurable, IReferenceable):
         self._references = references
 
     def configure(self, config):
-        # Try to get multiple credentials first
-        credentials = config.get_section("credentials")
-        if len(credentials) > 0:
-            sections_names = credentials.get_section_names()
-            for section in sections_names:
-                credential = credentials.get_section(section)
-                self._credentials.append(CredentialParams(credential))
-        # Then try to get a single connection
-        else:
-            credential = config.get_section("credential")
-            self._credentials.append(CredentialParams(credential))
+        credentials = CredentialParams.many_from_config(config)
+        for credential in credentials:
+            self._credentials.append(credential)
 
     def get_all(self):
         return list(self._credentials)

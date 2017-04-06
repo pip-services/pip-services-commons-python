@@ -13,15 +13,9 @@ from .CachedCounters import CachedCounters
 from .CounterType import CounterType
 from ..log.CompositeLogger import CompositeLogger
 from ..convert.StringConverter import StringConverter
-from ..refer.Descriptor import Descriptor
-from ..refer.IDescriptable import IDescriptable
 from ..refer.IReferenceable import IReferenceable
 
-LogCountersDescriptor = Descriptor(
-    "pip-services-commons", "counters", "log", "default", "1.0"
-)
-
-class LogCounters(CachedCounters, IDescriptable, IReferenceable):
+class LogCounters(CachedCounters, IReferenceable):
     _logger = None
 
     def __init__(self):

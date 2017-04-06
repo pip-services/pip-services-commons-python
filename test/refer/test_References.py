@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-    tests.refer.test_ReferenceSet
+    tests.refer.test_References
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     
     :copyright: (c) Conceptual Vision Consulting LLC 2015-2016, see AUTHORS for more details.
@@ -9,24 +9,26 @@
 
 import pytest
 
-from pip_services_commons.refer import ReferenceSet
+from pip_services_commons.refer import References
+from pip_services_commons.refer import ReferenceQuery
 
-class TestDescriptor:
+class TestReferences:
 
     def test_put(self):
-        refs = ReferenceSet()
-        refs.put("AAA", 111)
-        refs.put("BBB", 222)
-        refs.put("CCC", 333)
-        refs.put("DDD", 444)
+        refs = References()
+        refs.put(111, "AAA")
+        refs.put(222, "BBB")
+        refs.put(333, "CCC")
+        refs.put(444, "DDD")
         assert 4 == len(refs.get_all())
 
     def test_get(self):
-        refs = ReferenceSet()
-        refs.put("AAA", 111)
-        refs.put("BBB", 222)
-        refs.put("CCC", 333)
-        refs.put("DDD", 444)
+        refs = References.from_tuples(
+            111, "AAA",
+            222, "BBB",
+            333, "CCC",
+            444, "DDD"
+        )
         assert 4 == len(refs.get_all())
         
         item = refs.get_one_optional(555)
@@ -41,5 +43,6 @@ class TestDescriptor:
         items = refs.get_required(333)
         assert 1 == len(items)
 
-        item = refs.get_one_before(333, 111)
-        assert "AAA" == item
+        items = refs.find(ReferenceQuery(111, 333, False), True)
+        assert 1 == len(items)
+        assert "AAA" == items[0]

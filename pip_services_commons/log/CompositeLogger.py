@@ -12,14 +12,9 @@
 from .ILogger import ILogger
 from .Logger import Logger
 from ..refer.Descriptor import Descriptor
-from ..refer.IDescriptable import IDescriptable
 from ..refer.IReferenceable import IReferenceable
 
-CompositeLoggerDescriptor = Descriptor(
-    "pip-services-commons", "logger", "composite", "default", "1.0"
-)
-
-class CompositeLogger(Logger, IDescriptable, IReferenceable):
+class CompositeLogger(Logger, IReferenceable):
     _loggers = None
 
     def __init__(self, references = None):
@@ -28,9 +23,6 @@ class CompositeLogger(Logger, IDescriptable, IReferenceable):
         if references != None:
             self.set_references(references)
             
-    def get_descriptor(self):
-        return CompositeLoggerDescriptor
-
     def set_references(self, references):
         descriptor = Descriptor(None, "logger", None, None, None)
         loggers = references.get_optional(descriptor)

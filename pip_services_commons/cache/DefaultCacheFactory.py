@@ -9,9 +9,7 @@
     :license: MIT, see LICENSE for more details.
 """
 
-from .NullCache import NullCacheDescriptor
 from .NullCache import NullCache
-from .MemoryCache import MemoryCacheDescriptor
 from .MemoryCache import MemoryCache
 
 from ..refer.Descriptor import Descriptor
@@ -20,6 +18,14 @@ from ..build.IFactory import IFactory
 
 DefaultCacheFactoryDescriptor = Descriptor(
     "pip-services-commons", "factory", "cache", "default", "1.0"
+)
+
+NullCacheDescriptor = Descriptor(
+    "pip-services-commons", "cache", "null", "default", "1.0"
+)
+
+MemoryCacheDescriptor = Descriptor(
+    "pip-services-commons", "cache", "memory", "default", "1.0"
 )
 
 class DefaultCacheFactory(object, IFactory, IDescriptable):

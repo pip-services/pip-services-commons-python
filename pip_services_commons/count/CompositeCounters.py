@@ -13,14 +13,9 @@ from .ICounters import ICounters
 from .ITimingCallback import ITimingCallback
 from .Timing import Timing
 from ..refer.Descriptor import Descriptor
-from ..refer.IDescriptable import IDescriptable
 from ..refer.IReferenceable import IReferenceable
 
-CompositeCountersDescriptor = Descriptor(
-    "pip-services-commons", "counters", "composite", "default", "1.0"
-)
-
-class CompositeCounters(ICounters, ITimingCallback, IDescriptable, IReferenceable):
+class CompositeCounters(ICounters, ITimingCallback, IReferenceable):
     _counters = None
 
     def __init__(self, references = None):
@@ -29,9 +24,6 @@ class CompositeCounters(ICounters, ITimingCallback, IDescriptable, IReferenceabl
         if references != None:
             self.set_references(references)
             
-    def get_descriptor(self):
-        return CompositeCountersDescriptor
-
     def set_references(self, references):
         descriptor = Descriptor(None, "counters", None, None, None)
         counters = references.get_optional(descriptor)

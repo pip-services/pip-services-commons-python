@@ -118,17 +118,43 @@ class ConnectionParams(ConfigParams):
     def get_uri(self):
         """
         Gets the endpoint uri constructed from protocol, host and port
-        Returns: uri as <protocol>://<host | ip>:<port>
+        Returns: uri
         """
-        if self.get_protocol() == None:
-            self.set_protocol("http")
-        
-        if self.get_host() == None:
-            self.set_host("localhost")
-        
-        return self.get_protocol() + "://" + self.get_host() + ":" + str(self.get_port())
+        return self.get_as_string("uri")
+
+    def set_uri(self, value):
+        """
+        Sets the endpoint uri
+
+        Args:
+            value: string connection uri
+        """
+        self.set_as_object("uri", value)
 
     @staticmethod
     def from_string(line):
         map = StringValueMap.from_string(line)
         return ConnectionParams(map)
+
+    @staticmethod
+    def many_from_config(config):
+        result = []
+
+        # Try to get multiple connections first
+        connections = config.get_section("connections")
+        if len(connections) > 0:
+            sections_names = connections.get_section_names()
+            for section in sections_names:
+                connection = connections.get_section(section)
+                result.append(ConnectionParams(connection))
+        # Then try to get a single connection
+        else:
+            connection = config.get_section("connection")
+            result.append(ConnectionParams(connection))
+
+        return result
+
+    @staticmethod
+    def from_config(config):
+        connections = ConnectionParams.many_from_config(config)
+        return connections[0] if len(connections) > 0 else None

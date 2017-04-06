@@ -9,11 +9,8 @@
     :license: MIT, see LICENSE for more details.
 """
 
-from .NullLogger import NullLoggerDescriptor
 from .NullLogger import NullLogger
-from .ConsoleLogger import ConsoleLoggerDescriptor
 from .ConsoleLogger import ConsoleLogger
-from .CompositeLogger import CompositeLoggerDescriptor
 from .CompositeLogger import CompositeLogger
 
 from ..refer.Descriptor import Descriptor
@@ -22,6 +19,18 @@ from ..build.IFactory import IFactory
 
 DefaultLoggerFactoryDescriptor = Descriptor(
     "pip-services-commons", "factory", "logger", "default", "1.0"
+)
+
+NullLoggerDescriptor = Descriptor(
+    "pip-services-commons", "logger", "null", "default", "1.0"
+)
+
+ConsoleLoggerDescriptor = Descriptor(
+    "pip-services-commons", "logger", "console", "default", "1.0"
+)
+
+CompositeLoggerDescriptor = Descriptor(
+    "pip-services-commons", "logger", "composite", "default", "1.0"
 )
 
 class DefaultLoggerFactory(object, IFactory, IDescriptable):

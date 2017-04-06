@@ -18,6 +18,18 @@ class Referencer:
     """
 
     @staticmethod
+    def set_references_for_one(references, component):
+        """
+        Assigns references to components that implement IReferenceable interface  
+
+        Args:
+            references: references to be assigned
+            component: a component to assign references
+        """
+        if isinstance(component, IReferenceable):
+            component.set_references(references)
+
+    @staticmethod
     def set_references(references, components):
         """
         Assigns references to components that implement IReferenceable interface  
@@ -30,8 +42,18 @@ class Referencer:
             return
 
         for component in components:
-            if isinstance(component, IReferenceable):
-                component.set_references(references)
+            self.set_references_for_one(references, component)
+
+    @staticmethod
+    def unset_references_for_one(component):
+        """
+        Clears references for components that implement IUnreferenceable interface
+
+        Args:
+            component: a component to clear references
+        """
+        if isinstance(component, IUnreferenceable):
+            component.unset_references(references)
 
     @staticmethod
     def unset_references(components):
@@ -45,5 +67,4 @@ class Referencer:
             return
 
         for component in components:
-            if isinstance(component, IUnreferenceable):
-                component.unset_references(references)
+            self.unset_references_for_one(component)

@@ -16,14 +16,8 @@ from .ICache import ICache
 from .CacheEntry import CacheEntry
 from ..config.IReconfigurable import IReconfigurable
 from ..run.ICleanable import ICleanable
-from ..refer.IDescriptable import IDescriptable
-from ..refer.Descriptor import Descriptor
 
-MemoryCacheDescriptor = Descriptor(
-    "pip-services-commons", "cache", "memory", "default", "1.0"
-)
-
-class MemoryCache(object, ICache, IDescriptable, IReconfigurable, ICleanable):
+class MemoryCache(object, ICache, IReconfigurable, ICleanable):
     """
     Local in-memory cache that can be used in non-scaled deployments or for testing.
     
@@ -45,9 +39,6 @@ class MemoryCache(object, ICache, IDescriptable, IReconfigurable, ICleanable):
         self._max_size = self._default_max_size
         self._timeout = self._default_timeout
         self._lock = threading.Lock()
-
-    def get_descriptor(self):
-        return MemoryCacheDescriptor
 
     def configure(self, config):
         self._timeout = config.get_as_long_with_default("options.timeout", self._default_timeout)

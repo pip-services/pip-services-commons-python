@@ -16,17 +16,8 @@ import traceback
 from .LogLevel import LogLevel
 from .ILogger import ILogger
 from .Logger import Logger
-from ..refer.Descriptor import Descriptor
-from ..refer.IDescriptable import IDescriptable
 
-ConsoleLoggerDescriptor = Descriptor(
-    "pip-services-commons", "logger", "console", "default", "1.0"
-)
-
-class ConsoleLogger(Logger, IDescriptable):
-
-    def get_descriptor(self):
-        return ConsoleLoggerDescriptor
+class ConsoleLogger(Logger):
 
     def _compose_error(self, error):
         result = ""

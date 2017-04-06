@@ -11,17 +11,8 @@
 
 from .ICounters import ICounters
 from .Timing import Timing
-from ..refer.Descriptor import Descriptor
-from ..refer.IDescriptable import IDescriptable
 
-NullCountersDescriptor = Descriptor(
-    "pip-services-commons", "counters", "null", "default", "1.0"
-)
-
-class NullCounters(ICounters, IDescriptable):
-
-    def get_descriptor(self):
-        return NullCountersDescriptor
+class NullCounters(object, ICounters):
 
     def begin_timing(self, name):
         return Timing()

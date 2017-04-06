@@ -9,11 +9,8 @@
     :license: MIT, see LICENSE for more details.
 """
 
-from .NullCounters import NullCountersDescriptor
 from .NullCounters import NullCounters
-from .LogCounters import LogCountersDescriptor
 from .LogCounters import LogCounters
-from .CompositeCounters import CompositeCountersDescriptor
 from .CompositeCounters import CompositeCounters
 
 from ..refer.Descriptor import Descriptor
@@ -22,6 +19,18 @@ from ..build.IFactory import IFactory
 
 DefaultCountersFactoryDescriptor = Descriptor(
     "pip-services-commons", "factory", "counters", "default", "1.0"
+)
+
+NullCountersDescriptor = Descriptor(
+    "pip-services-commons", "counters", "null", "default", "1.0"
+)
+
+LogCountersDescriptor = Descriptor(
+    "pip-services-commons", "counters", "log", "default", "1.0"
+)
+
+CompositeCountersDescriptor = Descriptor(
+    "pip-services-commons", "counters", "composite", "default", "1.0"
 )
 
 class DefaultCountersFactory(object, IFactory, IDescriptable):

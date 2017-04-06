@@ -37,10 +37,11 @@ class CompositeFactory(object, IFactory):
         
         # Iterate from the latest factories
         for factory in reversed(self._factories):
-            if factory.can_create(locator):
-                return True
+            locator = factory.can_create(locator)
+            if locator != None:
+                return locator
         
-        return False
+        return None
 
     def create(self, locator):
         if locator == None:

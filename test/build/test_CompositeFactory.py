@@ -15,4 +15,4 @@ class TestCompositeFactory:
 
     def test_can_create(self):
         factory = CompositeFactory()
-        assert False == factory.can_create(111)
+        assert None == factory.can_create(111)

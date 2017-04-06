@@ -9,47 +9,37 @@
     :license: MIT, see LICENSE for more details.
 """
 
-from .ILocateable import ILocateable
-from .IDescriptable import IDescriptable
-
-class Reference(ILocateable):
+class Reference(object):
     """
     Placeholder to store component references.
     """
 
     _locator = None
-    _reference = None
-    _locateableReference = None
+    _component = None
 
 
-    def __init__(self, reference, locator = None):
-        if reference == None:
-            raise Exception("Object reference cannot be null")
+    def __init__(self, locator, component):
+        if component == None:
+            raise Exception("Component cannot be null")
         
-        self._reference = reference
-        if (locator != None):
-            self._locator = locator
-        elif isinstance(reference, ILocateable):
-            self._locateableReference = reference
-        elif isinstance(reference, IDescriptable):
-            self._locator = reference.get_descriptor()
-        else:
-            raise Exception("Reference must implement ILocateable or IDescriptable interface")
+        self._locator = locator
+        self._component = component
 
 
-    def locate(self, locator):
+    def match(self, locator):
         # Locate by direct reference matching
-        if self._reference == locator:
+        if self._component == locator:
             return True
-        # Locate by type
-        elif isinstance(locator, type):
-            return isinstance(self._reference, locator)
-        # Locate locateable objects
-        elif self._locateableReference != None:
-            return self._locateableReference.locate(locator)
         # Locate by direct locator matching
-        else:
+        elif self._locator != None:
             return self._locator == locator
+        else:
+            return False
 
-    def get_reference(self):
-        return self._reference
+
+    def get_component(self):
+        return self._component
+
+
+    def get_locator(self):
+        return self._locator
