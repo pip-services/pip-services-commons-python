@@ -3,7 +3,7 @@ Pip.Services Commons
 --------------------
 
 Pip.Services is an open-source library of basic microservices.
-pip-services-commons provides basic abstractions portable across variety of languages.
+pip_services_commons package provides basic abstractions portable across variety of languages.
 
 Links
 `````
