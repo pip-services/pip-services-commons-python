@@ -10,6 +10,7 @@
 * **connect** Added DefaultCredentialStoreFactory
 * **commands** Added ICommandable
 * **refer** Added ReferenceQuery
+* **config** Added NameResolver
 
 ### Breaking Changes
 * **run** Removed IParamExecutable. Now IExecutable takes args
