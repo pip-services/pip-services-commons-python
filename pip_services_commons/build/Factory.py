@@ -32,7 +32,7 @@ class Factory(object, IFactory):
 
         self._registrations.append(Registration(locator, factory))
 
-    def register_as_type(locator, object_factory):
+    def register_as_type(self, locator, object_factory):
         if locator == None:
             raise Exception("Locator cannot be null")
         if object_factory == None:
