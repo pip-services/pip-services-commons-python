@@ -24,12 +24,12 @@ setup(
     author='Conceptual Vision Consulting LLC',
     description='Basic portable abstractions for Pip.Services in Python',
     long_description=__doc__,
-    packages=find_packages(),
+    packages=find_packages(exclude=['config', 'data', 'test']),
     include_package_data=True,
     zip_safe=True,
     platforms='any',
     install_requires=[
-        'iso8601', 'PyYAML', 'pymongo', 'bottle', 'requests'
+        'iso8601', 'PyYAML'
     ],
     classifiers=[
         'Development Status :: 4 - Beta',
