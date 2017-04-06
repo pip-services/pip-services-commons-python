@@ -71,7 +71,8 @@ class CachedCounters(object, ICounters, IReconfigurable, ITimingCallback):
             self._lock.acquire()
             try:
                 self._updated = False
-                self._last_dump_time = time.clock()
+                current_time = time.clock() * 1000
+                self._last_dump_time = current_time
             finally:
                 self._lock.release()
 
@@ -79,7 +80,8 @@ class CachedCounters(object, ICounters, IReconfigurable, ITimingCallback):
     def _update(self):
         self._updated = True
         
-        if time.clock() > self._last_dump_time + (self._interval / 1000):
+        current_time = time.clock() * 1000
+        if current_time > self._last_dump_time + self._interval:
             try:
                 self.dump()
             except:

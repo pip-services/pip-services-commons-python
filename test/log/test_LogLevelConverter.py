@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-    tests.log.test_LogLevel
+    tests.log.test_LogLevelConverter
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     
     :copyright: (c) Conceptual Vision Consulting LLC 2015-2016, see AUTHORS for more details.
@@ -10,15 +10,16 @@
 import pytest
 
 from pip_services_commons.log import LogLevel
+from pip_services_commons.log import LogLevelConverter
 
 class TestLogLevel:
 
     def test_to_log_level(self):
-        assert LogLevel.to_log_level("1") == LogLevel.Fatal
-        assert LogLevel.to_log_level("fatal") == LogLevel.Fatal
+        assert LogLevelConverter.to_log_level("1") == LogLevel.Fatal
+        assert LogLevelConverter.to_log_level("fatal") == LogLevel.Fatal
 
     def test_to_string(self):
-        assert LogLevel.to_string(LogLevel.Fatal) == "FATAL"
+        assert LogLevelConverter.to_string(LogLevel.Fatal) == "FATAL"
 
     def test_to_integer(self):
-        assert LogLevel.to_integer(LogLevel.Fatal) == 1
+        assert LogLevelConverter.to_integer(LogLevel.Fatal) == 1

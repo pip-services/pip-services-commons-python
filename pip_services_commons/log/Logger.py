@@ -11,6 +11,7 @@
 
 from .LogLevel import LogLevel
 from .ILogger import ILogger
+from .LogLevelConverter import LogLevelConverter
 from ..config.IReconfigurable import IReconfigurable
 
 class Logger(object, ILogger, IReconfigurable):
@@ -18,7 +19,7 @@ class Logger(object, ILogger, IReconfigurable):
     _level = LogLevel.Info
 
     def configure(self, config):
-        self._level = LogLevel.to_log_level(config.get_as_object("level"))
+        self._level = LogLevelConverter.to_log_level(config.get_as_object("level"))
 
     def get_level(self):
         return self._level

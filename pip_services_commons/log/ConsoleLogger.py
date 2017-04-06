@@ -15,6 +15,7 @@ import traceback
 
 from .LogLevel import LogLevel
 from .ILogger import ILogger
+from .LogLevelConverter import LogLevelConverter
 from .Logger import Logger
 
 class ConsoleLogger(Logger):
@@ -46,7 +47,7 @@ class ConsoleLogger(Logger):
         output = "["
         output += correlation_id if correlation_id != None else "---"
         output += ":"
-        output += LogLevel.to_string(level)
+        output += LogLevelConverter.to_string(level)
         output += ":"
         output += datetime.datetime.utcnow().isoformat()
         output += "] "

@@ -10,12 +10,13 @@
 """
 
 __all__ = [
-    'LogLevel', 'ILogger', 'Logger', 
+    'LogLevel', 'LogLevelConverter', 'ILogger', 'Logger', 
     'NullLogger', 'ConsoleLogger', 'CompositeLogger', 
     'LogMessage', 'CachedLogger'
 ]
 
 from .LogLevel import LogLevel
+from .LogLevelConverter import LogLevelConverter
 from .ILogger import ILogger
 from .Logger import Logger
 from .NullLogger import NullLogger
