@@ -15,6 +15,7 @@
 * **config** Added IConfigReader
 * **config** Added CachedConfigReader
 * **config** Added FileConfigReader
+* **config** Added DefaultConfigReaderFactory
 
 ### Breaking Changes
 * **run** Removed IParamExecutable. Now IExecutable takes args
