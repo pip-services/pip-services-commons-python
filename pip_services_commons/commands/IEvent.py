@@ -23,7 +23,7 @@ class IEvent(object, IParamNotifiable):
         """
         raise NotImplementedError('Method from interface definition')
 
-    def get_listeneters(self):
+    def get_listeners(self):
         """
         Get listeners that receive notifications for that event
         Returns: a list with listeners

@@ -40,7 +40,7 @@ class Event(IEvent):
         """
         return self._name
 
-    def get_listeneters(self):
+    def get_listeners(self):
         """
         Get listeners that receive notifications for that event
         Returns: a list with listeners
@@ -65,17 +65,17 @@ class Event(IEvent):
         """
         self._listeners.append(remove)
     
-    def notify(self, correlation_id, value):
+    def notify(self, correlation_id, args):
         """
         Notifies all listeners about the event.
 
         Args:
             correlation_id: a unique correlation/transaction id
-            value: an event value
+            args: an event parameters
         """
         for listener in self._listeners:
             try:
-                listener.on_event(correlation_id, self, value)
+                listener.on_event(correlation_id, self, args)
             except Exception as ex:
                 raise InvocationException(
                     correlation_id,

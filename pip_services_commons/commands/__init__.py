@@ -12,7 +12,7 @@
 __all__ = [
     'ICommand', 'ICommandIntercepter', 'Command', 
     'InterceptedCommand', 'IEvent', 'IEventListener',
-    'Event', 'CommandSet'
+    'Event', 'CommandSet', 'ICommandable'
 ]
 
 from .ICommand import ICommand
@@ -23,3 +23,4 @@ from .IEvent import IEvent
 from .IEventListener import IEventListener
 from .Event import Event
 from .CommandSet import CommandSet
+from .ICommandable import ICommandable
