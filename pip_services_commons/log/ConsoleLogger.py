@@ -28,7 +28,7 @@ class ConsoleLogger(Logger):
 
             result += result + str(error)
             
-            if error.stack_trace != None:
+            if hasattr(error, 'stack_trace'):
                 result += " StackTrace: " + error.stack_trace
 
             if hasattr(error, 'cause'):
