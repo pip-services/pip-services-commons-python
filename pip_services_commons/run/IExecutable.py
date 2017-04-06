@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 """
     pip_services_commons.run.IExecutable
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     
-    Interface for executable components
+    Interface for executable components with parameters
     
     :copyright: Conceptual Vision Consulting LLC 2015-2016, see AUTHORS for more details.
     :license: MIT, see LICENSE for more details.
@@ -11,16 +11,16 @@
 
 class IExecutable:
     """
-    Interface for active components that can called to execute work.
-    In contrast to IParamExecutable this interface does not require parameters
+    Interface for components that support parameterized one-way notification 
     """
 
-    def execute(self, correlation_id):
+    def execute(self, correlation_id, args):
         """
-        Executes a unit of work
+        Executes a unit of work with given parameters
 
         Args:
             correlation_id: a unique transaction id to trace calls across components
+            args: a set of parameters for execution
         
         Returns: execution result
 

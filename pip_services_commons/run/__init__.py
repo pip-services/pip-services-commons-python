@@ -13,8 +13,8 @@ __all__ = [
     'Parameters', 'IParameterized', 'FixedRateTimer',
     'ICleanable', 'Cleaner', 
     'IOpenable', 'Opener', 'IClosable', 'Closer', 
-    'IExecutable', 'IParamExecutable', 'Executor',
-    'INotifiable', 'IParamNotifiable', 'Notifier'
+    'IExecutable', 'Executor',
+    'INotifiable', 'Notifier'
 ]
 
 from .Parameters import Parameters
@@ -27,8 +27,6 @@ from .Opener import Opener
 from .IClosable import IClosable
 from .Closer import Closer
 from .IExecutable import IExecutable
-from .IParamExecutable import IParamExecutable
 from .Executor import Executor
 from .INotifiable import INotifiable
-from .IParamNotifiable import IParamNotifiable
 from .Notifier import Notifier

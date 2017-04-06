@@ -16,22 +16,34 @@ from .Parameters import Parameters
 class Notifier:
 
     @staticmethod
-    def notify(correlation_id, components, parameters = None):
+    def notify_one(correlation_id, component, args):
         """
-        Triggers notification for components that implement INotifiable and IParamParam interfaces
-        and passes to IParamNotifiable them set of parameters.
+        Triggers notification for components that implement INotifiable interface.
 
         Args:
             correlation_id: a unique transaction id to trace calls across components
             components:  components a list of components to be notified
-            parameters: a set of parameters to pass to notified components
+            args: a set of parameters to pass to notified components
         """
         if components == None:
             return
 
-        parameters = parameters if parameters != None else Parameters()
+        if isinstance(component, INotifiable):
+            component.notify(correlation_id, args)
+
+    @staticmethod
+    def notify(correlation_id, components, args = None):
+        """
+        Triggers notification for components that implement INotifiable interface.
+
+        Args:
+            correlation_id: a unique transaction id to trace calls across components
+            components:  components a list of components to be notified
+            args: a set of parameters to pass to notified components
+        """
+        if components == None:
+            return
+
+        args = args if args != None else Parameters()
         for component in components:
-            if isinstance(component, IParamNotifiable):
-                component.notify(correlation_id, parameters)
-            elif isinstance(component, INotifiable):
-                component.notify(correlation_id)
+            Notifier.notify_one(correlation_id, component, args)

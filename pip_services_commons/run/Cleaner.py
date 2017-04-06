@@ -17,6 +17,18 @@ class Cleaner:
     """
 
     @staticmethod
+    def clear_one(correlation_id, component):
+        """
+        Cleans component that implements ICleanable interface
+
+        Args:
+            correlation_id: a unique transaction id to trace calls across components
+            component: a component to be cleaned
+        """
+        if isinstance(component, ICleanable):
+            component.clear(correlation_id)
+
+    @staticmethod
     def clear(correlation_id, components):
         """
         Cleans components that implement ICleanable interface
@@ -29,5 +41,4 @@ class Cleaner:
             return
 
         for component in components:
-            if isinstance(component, ICleanable):
-                component.clear(correlation_id)
+            Cleaner.clear_one(correlation_id, component)

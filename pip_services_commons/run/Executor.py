@@ -19,28 +19,42 @@ class Executor:
     """
 
     @staticmethod
-    def execute(correlation_id, components, parameters = None):
+    def execute_one(correlation_id, component, args):
         """
-        Triggers execution for components that implement IExecutable and IParamExecutable interfaces
-        and passes to IParamExecutable them set of parameters. 
+        Triggers execution for components that implement IExecutable interfaces
 
         Args:
             correlation_id: a unique transaction id to trace calls across components
             components:  components a list of components to be notified
-            parameters: a set of parameters to pass to executed components
+            args: a set of parameters to pass to executed components
 
         Returns: execution results
+        """
+        if isinstance(component, IExecutable):
+            return component.execute(correlation_id, parameters)
+
+        return None
+
+    @staticmethod
+    def execute(correlation_id, components, args = None):
+        """
+        Triggers execution for components that implement IExecutable interface
+
+        Args:
+            correlation_id: a unique transaction id to trace calls across components
+            components:  components a list of components to be notified
+            args: a set of parameters to pass to executed components
+
+        Returns: array of execution results
         """
         results = []
 
         if components == None:
             return
 
-        parameters = parameters if parameters != None else Parameters()
+        args = args if args != None else Parameters()
         for component in components:
-            if isinstance(component, IParamExecutable):
-                results.append(component.execute(correlation_id, parameters))
-            elif isinstance(component, INotifiable):
-                results.appent(component.execute(correlation_id))
+            result = Executor.execute_one(correlation_id, component, args)
+            results.append(result)
 
         return results

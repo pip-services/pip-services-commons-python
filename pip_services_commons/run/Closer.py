@@ -17,6 +17,18 @@ class Closer:
     """
 
     @staticmethod
+    def close_one(correlation_id, component):
+        """
+        Closes component that implement ICloseable interface
+
+        Args:
+            correlation_id: a unique transaction id to trace calls across components
+            component: a component to be closed
+        """
+        if isinstance(component, IClosable):
+            component.close(correlation_id)
+
+    @staticmethod
     def close(correlation_id, components):
         """
         Closes components that implement ICloseable interface
@@ -29,5 +41,4 @@ class Closer:
             return
 
         for component in components:
-            if isinstance(component, IClosable):
-                component.close(correlation_id)
+            Closer.close_one(correlation_id, component)

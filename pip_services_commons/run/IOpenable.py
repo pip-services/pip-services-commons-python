@@ -9,10 +9,20 @@
     :license: MIT, see LICENSE for more details.
 """
 
-class IOpenable:
+from .IClosable import IClosable
+
+class IOpenable(IClosable):
     """
     Interface for components that require explicit opening
     """
+
+    def is_opened(self):
+        """
+        Checks if component is opened
+
+        Returns: True is component is opened and False otherwise
+        """
+        raise NotImplementedError('Method from interface definition')
 
     def open(self, correlation_id):
         """
