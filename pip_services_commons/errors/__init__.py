@@ -5,12 +5,13 @@
     
     Errors module initialization
     
-    :copyright: Digital Living Software Corp. 2015-2016, see AUTHORS for more details.
+    :copyright: Conceptual Vision Consulting LLC 2015-2016, see AUTHORS for more details.
     :license: MIT, see LICENSE for more details.
 """
 
 __all__ = [
     'ErrorCategory', 'ErrorDescription', 'ApplicationException',
+    'ApplicationExceptionFactory', 'ErrorDescriptionFactory',
     'UnknownException', 'InternalException', 'ConfigException',
     'InvalidStateException', 'ConnectionException', 'InvocationException',
     'FileException', 'BadRequestException', 'NotFoundException', 
@@ -20,6 +21,8 @@ __all__ = [
 from .ErrorCategory import ErrorCategory
 from .ErrorDescription import ErrorDescription
 from .ApplicationException import ApplicationException
+from .ApplicationExceptionFactory import ApplicationExceptionFactory
+from .ErrorDescriptionFactory import ErrorDescriptionFactory
 from .UnknownException import UnknownException
 from .InternalException import InternalException
 from .ConfigException import ConfigException

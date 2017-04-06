@@ -5,7 +5,7 @@
     
     Data paging parameters implementation
     
-    :copyright: Digital Living Software Corp. 2015-2016, see AUTHORS for more details.
+    :copyright: Conceptual Vision Consulting LLC 2015-2016, see AUTHORS for more details.
     :license: MIT, see LICENSE for more details.
 """
 
@@ -45,24 +45,24 @@ class PagingParams(object):
     def has_total(self):
         return self.total
 
-    # @staticmethod
-    # def from_value(value):
-    #     if isinstance(value, PagingParams):
-    #         return value
-    #     if isinstance(value, AnyValueMap):
-    #         return PagingParams.from_map(value)
+    @staticmethod
+    def from_value(value):
+        if isinstance(value, PagingParams):
+            return value
+        if isinstance(value, AnyValueMap):
+            return PagingParams.from_map(value)
         
-    #     map = AnyValueMap.from_value(value)
-    #     return PagingParams.from_map(map)
+        map = AnyValueMap.from_value(value)
+        return PagingParams.from_map(map)
 
-    # @staticmethod
-    # def from_tuples(*tuples):
-    #     map = AnyValueMap.from_tuples_array(tuples)
-    #     return PagingParams.from_map(map)
+    @staticmethod
+    def from_tuples(*tuples):
+        map = AnyValueMap.from_tuples_array(tuples)
+        return PagingParams.from_map(map)
 
-    # @staticmethod
-    # def from_map(map):
-    #     skip = map.get_nullable_integer("skip")
-    #     take = map.get_nullable_integer("take")
-    #     total = map.get_nullable_boolean("total")
-    #     return PagingParams(skip, take, total)
+    @staticmethod
+    def from_map(map):
+        skip = map.get_as_nullable_integer("skip")
+        take = map.get_as_nullable_integer("take")
+        total = map.get_as_nullable_boolean("total")
+        return PagingParams(skip, take, total)

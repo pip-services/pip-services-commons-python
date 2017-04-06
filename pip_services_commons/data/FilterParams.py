@@ -5,7 +5,7 @@
     
     Free-form filter parameters implementation
     
-    :copyright: Digital Living Software Corp. 2015-2016, see AUTHORS for more details.
+    :copyright: Conceptual Vision Consulting LLC 2015-2016, see AUTHORS for more details.
     :license: MIT, see LICENSE for more details.
 """
 
@@ -20,6 +20,10 @@ class FilterParams(StringValueMap):
         if map != None:
             for (key, value) in map.items():
                 self[key] = value
+
+    @staticmethod
+    def from_value(value):
+        return FilterParams(value)
 
     @staticmethod
     def from_tuples(*tuples):

@@ -5,7 +5,7 @@
     
     AnyValueMap implementation
     
-    :copyright: Digital Living Software Corp. 2015-2016, see AUTHORS for more details.
+    :copyright: Conceptual Vision Consulting LLC 2015-2016, see AUTHORS for more details.
     :license: MIT, see LICENSE for more details.
 """
 
@@ -23,9 +23,7 @@ from ..convert.MapConverter import MapConverter
 class AnyValueMap(dict):
 
     def __init__(self, map = None):
-        if isinstance(map, dict):
-            for (k, v) in map.items():
-                self.put(k, v)
+        self.append(map)
 
     def get(self, key):
         key = key.lower()
@@ -36,6 +34,14 @@ class AnyValueMap(dict):
 
     def put(self, key, value):
         self[key] = value
+
+    def remove(self, key):
+        del self[key]
+
+    def append(self, map):
+        if isinstance(map, dict):
+            for (k, v) in map.items():
+                self.put(k, v)
 
     def get_as_object(self, key = None):
         if key == None:

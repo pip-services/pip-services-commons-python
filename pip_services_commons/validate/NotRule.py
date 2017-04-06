@@ -5,7 +5,7 @@
     
     Not rule implementation
     
-    :copyright: Digital Living Software Corp. 2015-2016, see AUTHORS for more details.
+    :copyright: Conceptual Vision Consulting LLC 2015-2016, see AUTHORS for more details.
     :license: MIT, see LICENSE for more details.
 """
 
@@ -30,7 +30,7 @@ class NotRule(IValidationRule):
         if len(local_results) > 0:
             return
 
-        results.append(new ValidationResult(
+        results.append(ValidationResult(
             path,
             ValidationResultType.Error,
             'NOT_FAILED',

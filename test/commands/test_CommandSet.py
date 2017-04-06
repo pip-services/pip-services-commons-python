@@ -3,7 +3,7 @@
     tests.config.test_CommandSet
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     
-    :copyright: (c) Digital Living Software Corp. 2015-2016, see AUTHORS for more details.
+    :copyright: (c) Conceptual Vision Consulting LLC 2015-2016, see AUTHORS for more details.
     :license: MIT, see LICENSE for more details.
 """
 
