@@ -50,8 +50,8 @@ class MemoryCache(object, ICache, IDescriptable, IReconfigurable, ICleanable):
         return MemoryCacheDescriptor
 
     def configure(self, config):
-        self._timeout = config.get_as_long_with_default("timeout", self._default_timeout)
-        self._max_size = config.get_as_long_with_default("max_size", self._default_max_size)
+        self._timeout = config.get_as_long_with_default("options.timeout", self._default_timeout)
+        self._max_size = config.get_as_long_with_default("options.max_size", self._default_max_size)
 
     def _cleanup(self):
         oldest = None

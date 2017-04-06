@@ -58,4 +58,3 @@ class TypeReflector:
             raise Exception("Type descriptor cannot be null")
 
         return TypeReflector.create_instance(descriptor.get_name(), descriptor.get_library())
-

@@ -8,7 +8,7 @@ Commons basic abstractions portable across variety of languages.
 Links
 `````
 
-* `website <http://www.pipservices.org>`_
+* `website <http://github.com/pip-services/pip-services>`
 * `development version <http://github.com/pip-services/pip-services-commons-python>`
 
 """
@@ -18,10 +18,10 @@ from setuptools import find_packages
 
 setup(
     name='pip_services_commons',
-    version='1.0.0',
+    version='2.0.0',
     url='http://github.com/pip-services/pip-services-commons-python',
     license='MIT',
-    author='Digital Living Software Corp.',
+    author='Conceptual Vision Consulting LLC',
     description='Basic portable abstractions for Pip.Services in Python',
     long_description=__doc__,
     packages=find_packages(),
