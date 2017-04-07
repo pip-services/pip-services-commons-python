@@ -100,6 +100,11 @@ class Parameters(AnyValueMap):
         return JsonConverter.to_json(self)
 
     @staticmethod
+    def from_value(value):
+        map = value if isinstance(value, dict) else RecursiveObjectReader.get_properties(value)
+        return Parameters(map)
+
+    @staticmethod
     def from_tuples(*tuples):
         map = AnyValueMap.from_tuples_array(tuples)
         return Parameters(map)

@@ -18,6 +18,7 @@ from ..convert.FloatConverter import FloatConverter
 from ..convert.DateTimeConverter import DateTimeConverter
 from ..convert.ArrayConverter import ArrayConverter
 from ..convert.MapConverter import MapConverter
+from ..reflect.RecursiveObjectReader import RecursiveObjectReader
 
 
 class AnyValueMap(dict):
@@ -196,9 +197,8 @@ class AnyValueMap(dict):
 
     @staticmethod
     def from_value(value):
-        result = AnyValueMap()
-        result.set_as_object(value)
-        return result
+        map = value if isinstance(value, dict) else RecursiveObjectReader.get_properties(value)
+        return AnyValueMap(map)
 
     @staticmethod
     def from_tuples(*tuples):

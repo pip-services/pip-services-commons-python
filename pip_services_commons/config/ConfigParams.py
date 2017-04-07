@@ -107,7 +107,7 @@ class ConfigParams(StringValueMap):
 
     @staticmethod
     def from_value(value):
-        map = RecursiveObjectReader.get_properties(value)
+        map = value if isinstance(value, dict) else RecursiveObjectReader.get_properties(value)
         return ConfigParams(map)
 
     

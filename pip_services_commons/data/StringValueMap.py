@@ -18,7 +18,7 @@ from ..convert.FloatConverter import FloatConverter
 from ..convert.DateTimeConverter import DateTimeConverter
 from ..convert.ArrayConverter import ArrayConverter
 from ..convert.MapConverter import MapConverter
-
+from ..reflect.RecursiveObjectReader import RecursiveObjectReader
 
 class StringValueMap(dict):
 
@@ -52,11 +52,11 @@ class StringValueMap(dict):
         else:
             return self.get(key)
 
-    def set_as_object(self, key = None, value = None):
-        if key == None and value != None:
-            self.set_as_map(value)
-        else:
-            self.put(key, value)
+    def set_as_object(self, *args):
+        if len(args) == 1:
+            self.set_as_map(args[0])
+        elif len(args) == 2:
+            self.put(args[0], args[1])
 
     def get_as_map(self, key):
         if key == None:
@@ -185,6 +185,10 @@ class StringValueMap(dict):
 
         return result
 
+    @staticmethod
+    def from_value(value):
+        map = value if isinstance(value, dict) else RecursiveObjectReader.get_properties(value)
+        return StringValueMap(map)
 
     @staticmethod
     def from_tuples(*tuples):
