@@ -26,6 +26,9 @@
 * **refer** ReferenceSet was renamed to References
 * **log** Convertion methods moved from LogLevel to LogLevelConverter
 
+### Bug Fixes
+* Fixed datetime conversion
+
 ## <a name="1.0.0"></a> 1.0.0 (2016-09-22)
 
 Initial public release

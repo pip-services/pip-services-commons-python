@@ -7,6 +7,8 @@
     :license: MIT, see LICENSE for more details.
 """
 
+from datetime import datetime
+
 from pip_services_commons.convert import StringConverter
 
 class TestStringConverter:
@@ -17,5 +19,6 @@ class TestStringConverter:
         assert "123" == StringConverter.to_string(123)
         assert "True" == StringConverter.to_string(True)
         #assert "{ prop = xyz }" == StringConverter.to_string(new { prop = "xyz" }, "xyz"));
+        assert "1975-04-08T19:00:00Z" == StringConverter.to_string(datetime(1975, 4, 8, 19, 0, 0, 0))
 
         assert "xyz" == StringConverter.to_string_with_default(None, "xyz")

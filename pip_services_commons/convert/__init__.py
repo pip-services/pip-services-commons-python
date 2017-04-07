@@ -13,7 +13,7 @@ __all__ = [
     'StringConverter', 'BooleanConverter', 'IntegerConverter', 
     'LongConverter', 'FloatConverter', 'DateTimeConverter',
     'ArrayConverter', 'MapConverter', 'RecursiveMapConverter', 
-    'JsonConverter', 'TypeCode', 'TypeConverter'
+    'JsonConverter', 'TypeCode', 'TypeConverter', 'UTC'
 ]
 
 from .StringConverter import StringConverter
@@ -28,3 +28,4 @@ from .RecursiveMapConverter import RecursiveMapConverter
 from .JsonConverter import JsonConverter
 from .TypeCode import TypeCode
 from .TypeConverter import TypeConverter
+from .UTC import UTC

@@ -9,12 +9,21 @@
     :license: MIT, see LICENSE for more details.
 """
 
+import datetime
+
 class StringConverter(object):
 
     @staticmethod
     def to_nullable_string(value):
         if value == None:
-            return None        
+            return None
+        if type(value) == datetime.date:
+            return value.isoformat()
+        if type(value) == datetime.datetime:
+            if value.tzinfo == None:
+                return value.isoformat() + "Z"
+            else:
+                return value.isoformat()
         return str(value)
 
     @staticmethod
