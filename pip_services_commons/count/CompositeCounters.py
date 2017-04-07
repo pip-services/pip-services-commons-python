@@ -34,10 +34,10 @@ class CompositeCounters(ICounters, ITimingCallback, IReferenceable):
     def begin_timing(self, name):
         return Timing(name, self)
 
-    def end_timing(self, elapsed):
+    def end_timing(self, name, elapsed):
         for counter in self._counters:
             if isinstance(counter, ITimingCallback):
-                counter.end_timing(elapsed)
+                counter.end_timing(name, elapsed)
 
     def stats(self, name, value):
         for counter in self._counters:

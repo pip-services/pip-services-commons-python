@@ -19,6 +19,6 @@ class Counter(object):
     average = None
     time = None
 
-    def __init__(self, name= None, typ = None):
+    def __init__(self, name= None, tipe = None):
         self.name = name
-        self.type = typ
+        self.type = tipe

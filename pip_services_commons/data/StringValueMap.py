@@ -187,7 +187,7 @@ class StringValueMap(dict):
 
     @staticmethod
     def from_value(value):
-        map = value if isinstance(value, dict) else RecursiveObjectReader.get_properties(value)
+        map = RecursiveObjectReader.get_properties(value)
         return StringValueMap(map)
 
     @staticmethod
