@@ -27,9 +27,8 @@ class FilterParams(StringValueMap):
 
     @staticmethod
     def from_tuples(*tuples):
-        filter = FilterParams()
-        filter.set_tuples_array(tuples)
-        return filter
+        map = StringValueMap.from_tuples_array(tuples)
+        return FilterParams(map)
 
     @staticmethod
     def from_string(line):
