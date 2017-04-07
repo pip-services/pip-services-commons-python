@@ -11,6 +11,7 @@
 
 from datetime import *
 import iso8601
+from .UTC import UTC
 
 class DateTimeConverter(object):
 
@@ -20,18 +21,22 @@ class DateTimeConverter(object):
         if value == None:
             return None
         if type(value) == datetime:
-            return value 
+            return DateTimeConverter.to_utc_datetime(value) 
 
         if type(value) in (int, float, long):
-            return datetime.fromtimestamp(value)
+            value = datetime.fromtimestamp(value)
+            return DateTimeConverter.to_utc_datetime(value) 
         if type(value) == date:
-            return datetime.combine(value, time(0,0,0))
+            value = datetime.combine(value, time(0,0,0))
+            return DateTimeConverter.to_utc_datetime(value) 
         if type(value) == time:
-            return datetime.combine(datetime.utcnow().date, value)
+            value = datetime.combine(datetime.utcnow().date, value)
+            return DateTimeConverter.to_utc_datetime(value) 
         
         try:
             value = str(value)
-            return iso8601.parse_date(value)
+            value = iso8601.parse_date(value)
+            return DateTimeConverter.to_utc_datetime(value) 
         except:
             return None
 
@@ -42,4 +47,15 @@ class DateTimeConverter(object):
     @staticmethod
     def to_datetime_with_default(value, default_value):
         result = DateTimeConverter.to_nullable_datetime(value)
-        return result if result != None else default_value
+        return result if result != None else DateTimeConverter.to_utc_datetime(default_value)
+
+    @staticmethod
+    def to_utc_datetime(value):
+        if value == None:
+            return value
+        elif type(value) == datetime:
+            if value.tzinfo == None:
+                value = value.replace(tzinfo=UTC)
+            return value
+        else:
+            return DateTimeConverter.to_nullable_datetime(value)
