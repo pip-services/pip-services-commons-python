@@ -16,6 +16,7 @@ from .IUnreferenceable import IUnreferenceable
 from .IReferences import IReferences
 from .Reference import Reference
 from .ReferenceQuery import ReferenceQuery
+from .ReferenceException import ReferenceException
 
 class References(object, IReferences):
     """
