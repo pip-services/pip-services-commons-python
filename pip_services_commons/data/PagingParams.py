@@ -46,6 +46,23 @@ class PagingParams(object):
     def has_total(self):
         return self.total
 
+    def to_json(self):
+        return {
+            'skip': self.skip,
+            'take': self.take,
+            'total': self.total
+        }
+
+    @staticmethod
+    def from_json(value):
+        if not isinstance(value, dict):
+            return value
+        
+        skip = value['skip'] if 'skip' in value else None
+        take = value['take'] if 'take' in value else None
+        total = value['total'] if 'total' in value else None
+        return PagingParams(skip, take, total)
+
     @staticmethod
     def from_value(value):
         if isinstance(value, PagingParams):

@@ -20,3 +20,18 @@ class DataPage(object):
     def __init__(self, data, total = None):
         self.data = data
         self.total = total
+
+    def to_json(self):
+        return {
+            'data': self.data,
+            'total': self.total
+        }
+
+    @staticmethod
+    def from_json(value):
+        if not isinstance(value, dict):
+            return value
+
+        data = value['data'] if 'data' in value else []
+        total = value['total'] if 'total' in value else None
+        return DataPage(data, total)
