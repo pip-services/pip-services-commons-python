@@ -16,30 +16,27 @@ import socket
 from .ILogger import ILogger
 from .Logger import Logger
 from .LogMessage import LogMessage
-from ..errors.ErrorDescription import ErrorDescription
+from ..errors.ErrorDescriptionFactory import ErrorDescriptionFactory
 from ..config.IReconfigurable import IReconfigurable
 
 class CachedLogger(Logger, IReconfigurable):
-    _default_interval = 60000
-
     _cache = None
     _updated = None
     _last_dump_time = None
-    _interval = None
+    _interval = 60000
     _lock = None
 
 
     def __init__(self):
         self._cache = []
         self._updated = False
-        self._last_dump_time = time.clock()
-        self._interval = self._default_interval / 1000
+        self._last_dump_time = time.clock() * 1000
         self._lock = threading.Lock()
 
 
     def _write(self, level, correlation_id, ex, message):
-        error = ErrorDescription.from_exception(ex) if ex != None else None
-        source = socket.gethostbyname() # Todo: add process/module name
+        error = ErrorDescriptionFactory.create(ex) if ex != None else None
+        source = socket.gethostname() # Todo: add process/module name
         log_message = LogMessage(level, source, correlation_id, error, message)
         
         self._lock.acquire()
@@ -56,7 +53,7 @@ class CachedLogger(Logger, IReconfigurable):
 
 
     def configure(self, config):
-        self._interval = config.get_as_float_with_default("interval", self._default_interval) / 1000 
+        self._interval = config.get_as_float_with_default("interval", self._interval)
 
 
     def clear(self):
@@ -81,7 +78,7 @@ class CachedLogger(Logger, IReconfigurable):
                 self._save(messages)
 
                 self._updated = False
-                self._last_dump_time = time.clock()
+                self._last_dump_time = time.clock() * 1000
             finally:
                 self._lock.release()
 
@@ -89,7 +86,7 @@ class CachedLogger(Logger, IReconfigurable):
     def _update(self):
         self._updated = True
         
-        if time.clock() > self._last_dump_time + self._interval:
+        if time.clock() * 1000 > self._last_dump_time + self._interval:
             try:
                 self.dump()
             except:
