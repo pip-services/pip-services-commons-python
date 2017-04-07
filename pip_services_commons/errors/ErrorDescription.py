@@ -36,8 +36,10 @@ class ErrorDescription(object):
 
     @staticmethod
     def from_json(json):
+        if not isinstance(json, dict):
+            return json
+
         error = ErrorDescription()
-        
         error.category = json['category']
         error.status = json['status']
         error.code = json['code']
@@ -46,5 +48,4 @@ class ErrorDescription(object):
         error.correlation_id = json['correlation_id']
         error.cause = json['cause']
         error.stack_trace = json['stack_trace']
-
         return error
