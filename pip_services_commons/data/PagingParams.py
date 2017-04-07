@@ -11,6 +11,7 @@
 
 from ..convert.IntegerConverter import IntegerConverter
 from ..convert.BooleanConverter import BooleanConverter
+from .AnyValueMap import AnyValueMap
 
 class PagingParams(object):
     """
