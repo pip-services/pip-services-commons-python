@@ -52,7 +52,7 @@ class AnyValueMap(dict):
 
     def get_as_object(self, key = None):
         if key == None:
-            return self.get_as_map()
+            return dict(self)
         else:
             return self.get(key)
 
