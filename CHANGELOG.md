@@ -1,5 +1,10 @@
 # Basic portable abstractions for Pip.Services in Python Changelog
 
+## <a name="2.3.0"></a> 2.3.0 (2017-04-11)
+
+### Features
+* **config** Added parameters to ConfigReader.read_config()
+
 ## <a name="2.0.0"></a> 2.0.0 (2016-04-05)
 
 ### Features

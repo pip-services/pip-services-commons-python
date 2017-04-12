@@ -11,7 +11,7 @@
 
 __all__ = [
     'IConfigurable', 'IReconfigurable', 'ConfigParams',
-    'IConfigReader', 'CachedConfigReader', 'MemoryConfigReader',
+    'IConfigReader', 'ConfigReader', 'MemoryConfigReader',
     'FileConfigReader', 'JsonConfigReader', 'YamlConfigReader',
     'NameResolver', 'OptionsResolver', 'DefaultConfigReaderFactory'
 ]
@@ -20,7 +20,7 @@ from .IConfigurable import IConfigurable
 from .IReconfigurable import IReconfigurable
 from .ConfigParams import ConfigParams
 from .IConfigReader import IConfigReader
-from .CachedConfigReader import CachedConfigReader
+from .ConfigReader import ConfigReader
 from .MemoryConfigReader import MemoryConfigReader
 from .FileConfigReader import FileConfigReader
 from .JsonConfigReader import JsonConfigReader

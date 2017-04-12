@@ -10,13 +10,13 @@
 """
 
 from .ConfigParams import ConfigParams
-from .CachedConfigReader import CachedConfigReader
-from .IConfigurable import IConfigurable
+from .ConfigReader import ConfigReader
 
-class FileConfigReader(CachedConfigReader, IConfigurable):
+class FileConfigReader(ConfigReader):
     _path = None
 
     def __init__(self, path = None):
+        super(FileConfigReader, self).__init__()
         self._path = path
         
     def get_path(self):
@@ -26,4 +26,5 @@ class FileConfigReader(CachedConfigReader, IConfigurable):
         self._path = path
 
     def configure(self, config):
+        super(FileConfigReader, self).configure(config)
         this._path = config.get_as_string_with_default("path", self._path)

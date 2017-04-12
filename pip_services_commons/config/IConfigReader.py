@@ -9,12 +9,7 @@
     :license: MIT, see LICENSE for more details.
 """
 
-from .ConfigParams import ConfigParams
-
 class IConfigReader:
 
-    def read_config(correlation_id):
-        raise NotImplementedError('Method from interface definition')
-        
-    def read_config_section(correlation_id, section):
+    def read_config(correlation_id, parameters):
         raise NotImplementedError('Method from interface definition')

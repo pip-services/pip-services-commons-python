@@ -22,7 +22,7 @@ class YamlConfigReader(FileConfigReader):
     def __init__(self, path):
         super(YamlConfigReader, self).__init__(path)
     
-    def _read_object(self, correlation_id):
+    def _read_object(self, correlation_id, parameters):
         path = self.get_path()
 
         if path == None:
@@ -33,7 +33,9 @@ class YamlConfigReader(FileConfigReader):
         
         try:
             with open(path, 'r') as file:
-                return yaml.load(file)
+                config = file.read()
+                config = self._parameterize(config, parameters)
+                return yaml.load(config)
         except Exception as ex:
             raise FileException(
                 correlation_id,
@@ -41,15 +43,15 @@ class YamlConfigReader(FileConfigReader):
                 "Failed reading configuration " + path + ": " + str(ex)
             ).with_details("path", path).with_cause(ex)
 
-    def _perform_read_config(correlation_id):
-        value = self._read_object(correlation_id)
+    def read_config(correlation_id, parameters):
+        value = self._read_object(correlation_id, parameters)
         return ConfigParams.from_value(value)
 
     @staticmethod
-    def read_object(correlation_id, path):
-        return YamlConfigReader(path)._read_object(correlation_id)
+    def read_object(correlation_id, path, parameters):
+        return YamlConfigReader(path)._read_object(correlation_id, parameters)
 
     @staticmethod
-    def read_config(correlation_id, path):
-        value = YamlConfigReader(path)._read_object(correlation_id)
+    def read_config(correlation_id, path, parameters):
+        value = YamlConfigReader(path)._read_object(correlation_id, parameters)
         return ConfigParams.from_value(value)
