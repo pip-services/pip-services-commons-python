@@ -115,3 +115,35 @@ class TypeConverter(object):
     def to_type_with_default(value_type, value, default_value):
         result = TypeConverter.to_nullable_type(value_type, value)
         return result if result != None else default_value
+
+
+    @staticmethod
+    def to_string(type):
+        if type == None:
+            return "unknown"
+        elif result_type == TypeCode.Unknown:
+            return "unknown"
+        elif result_type == TypeCode.String:
+            return "string"
+        elif result_type == TypeCode.Integer:
+            return "integer"
+        elif result_type == TypeCode.Long:
+            return "long"
+        elif result_type == TypeCode.Float:
+            return "float"
+        elif result_type == TypeCode.Double:
+            return "double"
+        elif result_type == TypeCode.Duration:
+            return "duration"
+        elif result_type == TypeCode.DateTime:
+            return "datetime"
+        elif result_type == TypeCode.Object:
+            return "object"
+        elif result_type == TypeCode.Enum:
+            return "enum"
+        elif result_type == TypeCode.Array:
+            return "array"
+        elif result_type == TypeCode.Map:
+            return "map"
+        else:
+            return "unknown"

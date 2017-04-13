@@ -4,6 +4,7 @@
 
 ### Features
 * **config** Added parameters to ConfigReader.read_config()
+* **validate** Added FilterParamsSchema and PagingParamsSchema
 
 ## <a name="2.0.0"></a> 2.0.0 (2016-04-05)
 

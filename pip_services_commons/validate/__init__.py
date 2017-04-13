@@ -14,7 +14,8 @@ __all__ = [
     'IValidationRule', 'AndRule', 'OrRule', 'NotRule', 'ObjectComparator',
     'ValueComparisonRule', 'PropertiesComparisonRule',
     'OnlyOneExistRule', 'AttributeError', 'ExcludedRule', 'IncludedRule',
-    'Schema', 'PropertySchema', 'ObjectSchema', 'ArraySchema', 'MapSchema'
+    'Schema', 'PropertySchema', 'ObjectSchema', 'ArraySchema', 'MapSchema',
+    'FilterParamsSchema', 'PagingParamsSchema'
 ]
 
 from .ValidationResultType import ValidationResultType
@@ -36,3 +37,6 @@ from .PropertySchema import PropertySchema
 from .ObjectSchema import ObjectSchema
 from .ArraySchema import ArraySchema
 from .MapSchema import MapSchema
+from .FilterParamsSchema import FilterParamsSchema
+from .PagingParamsSchema import PagingParamsSchema
+

@@ -14,6 +14,7 @@ from .ValidationResult import ValidationResult
 from .ValidationException import ValidationException
 from ..reflect.ObjectReader import ObjectReader
 from ..reflect.TypeMatcher import TypeMatcher
+from ..convert.TypeConverter import TypeConverter
 
 class Schema(object):
     required = None
@@ -58,6 +59,11 @@ class Schema(object):
                 for rule in self.rules:
                     rule.validate(path, self, value, results)
 
+    def _type_to_string(self, typ):
+        if typ == None:
+            return "unknown"
+        return TypeConverter.to_string(typ)
+
     def _perform_type_validation(self, path, typ, value, results):
         # If type it not defined then skip
         if typ == None:
@@ -86,7 +92,7 @@ class Schema(object):
                 path,
                 ValidationResultType.Error,
                 "TYPE_MISMATCH",
-                "Expected type " + str(typ) + " but found " + str(value_type),
+                "Expected type " + self._type_to_string(typ) + " but found " + self._type_to_string(value_type),
                 typ,
                 value_type
             )
