@@ -26,6 +26,7 @@ class PropertiesComparisonRule(IValidationRule):
         self._property2 = property2
 
     def validate(self, path, schema, value, results):
+        name = path if path != None else "value"
         value1 = ObjectReader.get_property(value, self._property1)
         value2 = ObjectReader.get_property(value, self._property2)
 
@@ -35,7 +36,7 @@ class PropertiesComparisonRule(IValidationRule):
                     path,
                     ValidationResultType.Error,
                     "PROPERTIES_NOT_MATCH",
-                    "Property " + str(self._property1) + " is expected to " + str(self._operation) + " property " + str(self._property2),
+                    name + " must have " + str(self._property1) + " " + str(self._operation) + " " + str(self._property2),
                     value2,
                     value1
                 )

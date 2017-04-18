@@ -38,6 +38,8 @@ class Schema(object):
         return self
 
     def _perform_validation(self, path, value, results):
+        name = path if path != None else "value"
+
         if value == None:
             # Check for required values
             if self.required:
@@ -46,7 +48,7 @@ class Schema(object):
                         path,
                         ValidationResultType.Error,
                         "VALUE_IS_NULL",
-                        "value cannot be null",
+                        name + " cannot be null",
                         "NOT NULL",
                         None
                     )
@@ -80,6 +82,7 @@ class Schema(object):
         if value == None:
             return
 
+        name = path if path != None else "value"
         value_type = type(value)
 
         # Match types
@@ -92,7 +95,7 @@ class Schema(object):
                 path,
                 ValidationResultType.Error,
                 "TYPE_MISMATCH",
-                "Expected type " + self._type_to_string(typ) + " but found " + self._type_to_string(value_type),
+                name + " type must be " + self._type_to_string(typ) + " but found " + self._type_to_string(value_type),
                 typ,
                 value_type
             )

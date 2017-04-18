@@ -21,7 +21,9 @@ class ExcludedRule(IValidationRule):
         self._values = values
 
     def validate(self, path, schema, value, results):
+        name = path if path != None else "value"
         found = False
+
         for this_value in self._values:
             if this_value != None and this_value == value:
                 found = True
@@ -33,7 +35,7 @@ class ExcludedRule(IValidationRule):
                     path,
                     ValidationResultType.Error,
                     "VALUE_INCLUDED",
-                    "Value shall not be one of " + str(self._values),
+                    name + " must not be one of " + str(self._values),
                     self._values,
                     value
                 )

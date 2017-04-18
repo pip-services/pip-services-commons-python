@@ -23,13 +23,15 @@ class ValueComparisonRule(IValidationRule):
         self._value = value
 
     def validate(self, path, schema, value, results):
+        name = path if path != None else "value"
+
         if not ObjectComparator.compare(value, self._operation, self._value):
             results.append(
                 ValidationResult(
                     path,
                     ValidationResultType.Error,
                     "BAD_VALUE",
-                    str(value) + " is expected to " + str(self._operation) + " " + str(self._value),
+                    name + " must " + str(self._operation) + " " + str(self._value) + " but found " + str(value),
                     str(self._operation) + " " + str(self._value),
                     value
                 )

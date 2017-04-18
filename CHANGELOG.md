@@ -1,5 +1,10 @@
 # Basic portable abstractions for Pip.Services in Python Changelog
 
+## <a name="2.3.2"></a> 2.3.2 (2017-04-17)
+
+### Bug Fixes
+* Fixed validation error messages
+
 ## <a name="2.3.0"></a> 2.3.0 (2017-04-11)
 
 ### Features

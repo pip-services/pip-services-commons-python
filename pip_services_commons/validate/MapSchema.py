@@ -23,6 +23,7 @@ class MapSchema(Schema):
         self.value_type = value_type
 
     def _perform_validation(self, path, value, results):
+        name = path if path != None else "value"
         value = ObjectReader.get_value(value)
 
         super(MapSchema, self)._perform_validation(path, value, results)
@@ -42,7 +43,7 @@ class MapSchema(Schema):
                     path,
                     ValidationResultType.Error,
                     "VALUE_ISNOT_MAP",
-                    "Value type is expected to be Dictionary",
+                    name + " type is expected to be Map",
                     "Map",
                     type(value)
                 )

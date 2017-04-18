@@ -23,6 +23,7 @@ class NotRule(IValidationRule):
         if self._rule == None:
             return
 
+        name = path if path != None else "value"
         local_results = []
 
         self._rule.validate(path, schema, value, local_results)
@@ -34,7 +35,7 @@ class NotRule(IValidationRule):
             path,
             ValidationResultType.Error,
             'NOT_FAILED',
-            'Negative check failed',
+            'Negative check for ' + name + ' failed',
             None,
             None
         ))

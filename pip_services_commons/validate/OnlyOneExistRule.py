@@ -21,7 +21,9 @@ class OnlyOneExistRule(IValidationRule):
         self._properties = properties
 
     def validate(self, path, schema, value, results):
+        name = path if path != None else "value"
         found = []
+
         for prop in self._properties:
             property_value = ObjectReader.get_property(value, prop)
             if property_value != None:
@@ -33,7 +35,7 @@ class OnlyOneExistRule(IValidationRule):
                     path,
                     ValidationResultType.Error,
                     "VALUE_NULL",
-                    "At least one property expected from " + str(self._properties),
+                    name + " must have at least one property from " + str(self._properties),
                     self._properties,
                     None
                 )
@@ -44,7 +46,7 @@ class OnlyOneExistRule(IValidationRule):
                     path,
                     ValidationResultType.Error,
                     "VALUE_ONLY_ONE",
-                    "Only one property expected from " + str(self._properties),
+                    name + " must have only one property from " + str(self._properties),
                     self._properties,
                     found
                 )

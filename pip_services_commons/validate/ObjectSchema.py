@@ -51,6 +51,7 @@ class ObjectSchema(Schema):
         if value == None:
             return
 
+        name = path if path != None else "value"
         properties = ObjectReader.get_properties(value)
 
         # Process defined properties
@@ -79,7 +80,7 @@ class ObjectSchema(Schema):
                     property_path,
                     ValidationResultType.Warning,
                     "UNEXPECTED_PROPERTY",
-                    "Found unexpected property " + str(key),
+                    name + " contains unexpected property " + str(key),
                     None,
                     key
                 )

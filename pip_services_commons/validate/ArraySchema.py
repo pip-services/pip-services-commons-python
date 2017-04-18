@@ -21,6 +21,7 @@ class ArraySchema(Schema):
         self.value_type = value_type
 
     def _perform_validation(self, path, value, results):
+        name = path if path != None else "value"
         value = ObjectReader.get_value(value)
 
         super(ArraySchema, self)._perform_validation(path, value, results)
@@ -40,7 +41,7 @@ class ArraySchema(Schema):
                     path,
                     ValidationResultType.Error,
                     "VALUE_ISNOT_ARRAY",
-                    "Value type is expected to be List or array",
+                    name + " type must be List or Array",
                     "List",
                     type(value)
                 )
