@@ -10,7 +10,6 @@
 import pytest
 
 from pip_services_commons.refer import References
-from pip_services_commons.refer import ReferenceQuery
 
 class TestReferences:
 
@@ -43,6 +42,3 @@ class TestReferences:
         items = refs.get_required(333)
         assert 1 == len(items)
 
-        items = refs.find(ReferenceQuery(111, 333, False), True)
-        assert 1 == len(items)
-        assert "AAA" == items[0]

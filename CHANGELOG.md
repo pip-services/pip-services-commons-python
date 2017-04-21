@@ -1,5 +1,10 @@
 # Basic portable abstractions for Pip.Services in Python Changelog
 
+## <a name="2.4.0"></a> 2.4.0 (2017-04-20)
+
+### Breaking changes
+* Removed ReferenceQuery
+
 ## <a name="2.3.2"></a> 2.3.2 (2017-04-17)
 
 ### Bug Fixes

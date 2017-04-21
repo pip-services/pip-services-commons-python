@@ -15,7 +15,6 @@ from .IReferenceable import IReferenceable
 from .IUnreferenceable import IUnreferenceable
 from .IReferences import IReferences
 from .Reference import Reference
-from .ReferenceQuery import ReferenceQuery
 from .ReferenceException import ReferenceException
 
 class References(object, IReferences):
@@ -98,53 +97,44 @@ class References(object, IReferences):
 
     def get_optional(self, locator):
         try:
-            return self.find(ReferenceQuery(locator), False)
+            return self.find(locator, False)
         except Exception as ex:
             return []
 
 
     def get_required(self, locator):
-        return self.find(ReferenceQuery(locator), True)
+        return self.find(locator, True)
 
 
     def get_one_optional(self, locator):
         try:
-            components = self.find(ReferenceQuery(locator), False)
+            components = self.find(locator, False)
             return components[0] if len(components) > 0 else None
         except Exception as ex:
             return None
 
 
     def get_one_required(self, locator):
-        components = self.find(ReferenceQuery(locator), True)
+        components = self.find(locator, True)
         return components[0] if len(components) > 0 else None
 
 
-    def find(self, query, required):
-        if query == None:
-            raise Exception("Query cannot be null")
+    def find(self, locator, required):
+        if locator == None:
+            raise Exception("Locator cannot be null")
 
         components = []
 
         self._lock.acquire()
         try:
-            index = 0 if query.ascending else len(self._references) - 1
+            index = len(self._references) - 1
             
-            # Locate the start
-            if query.start_locator != None:
-                while index >= 0 and index < len(self._references):
-                    reference = self._references[index]
-                    if reference.match(query.start_locator):
-                        break
-                    index = index + (1 if query.ascending else -1)
-
-            # Search all references
-            while index >= 0 and index < len(self._references):
+            while index >= 0:
                 reference = self._references[index]
-                if reference.match(query.locator):
+                if reference.match(locator):
                     component = reference.get_component()
                     components.append(component)
-                index = index + (1 if query.ascending else -1)
+                index = index - 1
 
             if len(components) == 0 and required:
                 raise ReferenceException(None, query.locator)

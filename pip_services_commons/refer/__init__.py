@@ -13,7 +13,7 @@ __all__ = [
     'Descriptor',
     'IReferenceable', 'IUnreferenceable', 'IReferences',
     'ReferenceException', 'Referencer', 'Reference',
-    'References', 'ReferenceQuery', 'DependencyResolver'
+    'References', 'DependencyResolver'
 ]
 
 from .Descriptor import Descriptor
@@ -24,5 +24,4 @@ from .ReferenceException import ReferenceException
 from .Referencer import Referencer
 from .Reference import Reference
 from .References import References
-from .ReferenceQuery import ReferenceQuery
 from .DependencyResolver import DependencyResolver

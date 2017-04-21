@@ -18,7 +18,7 @@ from setuptools import find_packages
 
 setup(
     name='pip_services_commons',
-    version='2.3.2',
+    version='2.4.0',
     url='http://github.com/pip-services/pip-services-commons-python',
     license='MIT',
     description='Basic portable abstractions for Pip.Services in Python',
