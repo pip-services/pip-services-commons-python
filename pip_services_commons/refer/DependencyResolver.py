@@ -88,19 +88,17 @@ class DependencyResolver(object, IReconfigurable, IReferenceable):
         return self._references.get_one_required(locator)
 
 
-    def find(self, query, required):
-        if query.locator == None:
-            raise Exception("Locator cannot be null")
+    def find(self, name, required):
+        if name == None:
+            raise Exception("Name cannot be null")
         
-        name = StringConverter.to_string(query.locator)
         locator = self._locate(name)
         if locator == None:
             if required:
                 raise ReferenceException(None, name)
             return None
         
-        query.locator = locator
-        return self._references.find(query, required)
+        return self._references.find(locator, required)
 
 
     @staticmethod
