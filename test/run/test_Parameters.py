@@ -147,14 +147,14 @@ class TestParameters:
         config = ConfigParams.from_tuples(
             "field1.field11", 123,
             "field2", "ABC",
-            "Field1.Field12", "XYZ"
+            "field1.field12", "XYZ"
         )
         
         params = Parameters.from_config(config)
         assert 2 == len(params)
-        assert "ABC" == params.get("Field2")
-        value = params.get_as_map("Field1")
+        assert "ABC" == params.get("field2")
+        value = params.get_as_map("field1")
         assert 2 == len(value)
         assert "123" == value.get("field11")
-        assert "XYZ" == value.get("Field12")
+        assert "XYZ" == value.get("field12")
 

@@ -1,6 +1,6 @@
 /.idea
 /config/config.json
-/config/config.yaml
+/config/config.yml
 /data/dummies.json
 /build
 /dist

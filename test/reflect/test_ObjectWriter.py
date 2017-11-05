@@ -44,10 +44,10 @@ class TestObjectWriter:
         assert "AAAA" == map.get("key3")
         
         ObjectWriter.set_property(map, "Key1", 5555)
-        assert 5555 == map.get("Key1")
+        assert 5555 == map.get("key1")
         
         ObjectWriter.set_property(map, "Key2", "BBBB")
-        assert "BBBB" == map.get("Key2")
+        assert "BBBB" == map.get("key2")
 
 
     def test_set_array_property(self):

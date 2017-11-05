@@ -34,11 +34,7 @@ class StringValueMap(dict):
         return names
 
     def get(self, key):
-        key = key.lower()
-        for (k, v) in self.items():
-            if key == k.lower():
-                return v
-        return None
+        return self[key] if key in self else None
 
     def put(self, key, value):
         self[key] = StringConverter.to_nullable_string(value)

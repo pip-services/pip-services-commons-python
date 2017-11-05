@@ -41,7 +41,7 @@ class TestConfigParams:
         assert "Section1" in sections
         assert "Section2" in sections
         
-        section1 = config.get_section("section1")
+        section1 = config.get_section("Section1")
         assert 3 == len(section1)
         assert "Value1" == section1.get("Key1")
         assert "Value2" == section1.get("Key2")
@@ -65,10 +65,10 @@ class TestConfigParams:
         
         config = ConfigParams.from_value(value);
         assert 7 == len(config)
-        assert 123 == config.get_as_integer("Field1.Field11")
-        assert "ABC" == config.get_as_string("Field1.Field12")
-        assert 123 == config.get_as_integer("Field2.0")
-        assert "ABC" == config.get_as_string("Field2.1")
-        assert 543 == config.get_as_integer("Field2.2.Field21")
-        assert "XYZ" == config.get_as_string("Field2.2.Field22")
-        assert True == config.get_as_boolean("Field3")
+        assert 123 == config.get_as_integer("field1.field11")
+        assert "ABC" == config.get_as_string("field1.field12")
+        assert 123 == config.get_as_integer("field2.0")
+        assert "ABC" == config.get_as_string("field2.1")
+        assert 543 == config.get_as_integer("field2.2.field21")
+        assert "XYZ" == config.get_as_string("field2.2.field22")
+        assert True == config.get_as_boolean("field3")

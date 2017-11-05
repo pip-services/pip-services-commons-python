@@ -43,7 +43,7 @@ class ConfigParams(StringValueMap):
             # Perform case sensitive search
             found = False
             for section in sections:
-                if section.lower() == key.lower():
+                if section == key:
                     found = True
                     break
                 
@@ -64,7 +64,7 @@ class ConfigParams(StringValueMap):
             
             # Perform case sensitive match
             key_prefix = key[: len(prefix)]
-            if key_prefix.lower() == prefix.lower():
+            if key_prefix == prefix:
                 key = key[len(prefix): ]
                 result[key] = value
         

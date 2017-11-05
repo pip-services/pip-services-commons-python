@@ -33,11 +33,7 @@ class AnyValueMap(dict):
         return names
 
     def get(self, key):
-        key = key.lower()
-        for (k, v) in self.items():
-            if key == k.lower():
-                return v
-        return None
+        return self[key] if key in self else None
 
     def put(self, key, value):
         self[key] = value
@@ -171,10 +167,7 @@ class AnyValueMap(dict):
         return AnyValueMap.from_value(value)
 
     def contains_key(self, key):
-        for (k, v) in self.items():
-            if key == k.lower():
-                return True
-        return False
+        return key in self
 
     def clone(self):
         map = AnyValueMap()
